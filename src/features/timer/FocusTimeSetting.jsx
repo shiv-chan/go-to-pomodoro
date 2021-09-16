@@ -4,11 +4,23 @@ import { useDispatch } from 'react-redux';
 
 export default function FocusSetting() {
 	const dispatch = useDispatch();
-	const [focus, setFocus] = useState('25');
+	const [focusTime, setFocusTime] = useState('25');
+	const [customTime, setCustomTime] = useState('');
 
-	const handleChange = (e) => {
+	const handleRadioChange = (e) => {
+		const { value, name } = e.currentTarget;
+		if (name === 'f-custom') {
+			setFocusTime('');
+		} else {
+			setFocusTime(value);
+		}
+		const timeInSecond = parseInt(value) * 60;
+		dispatch(set({ focus: timeInSecond }));
+	};
+
+	const handleNumberChange = (e) => {
 		const { value } = e.currentTarget;
-		setFocus(value);
+		setCustomTime(value);
 		const timeInSecond = parseInt(value) * 60;
 		dispatch(set({ focus: timeInSecond }));
 	};
@@ -23,8 +35,8 @@ export default function FocusSetting() {
 						id="f10"
 						name="f10"
 						value="10"
-						checked={focus === '10'}
-						onChange={handleChange}
+						checked={focusTime === '10'}
+						onChange={handleRadioChange}
 					/>
 					<label htmlFor="f10">
 						10 <span className="min">min</span>
@@ -36,8 +48,8 @@ export default function FocusSetting() {
 						id="f15"
 						name="f15"
 						value="15"
-						checked={focus === '15'}
-						onChange={handleChange}
+						checked={focusTime === '15'}
+						onChange={handleRadioChange}
 					/>
 					<label htmlFor="f15">
 						15 <span className="min">min</span>
@@ -49,8 +61,8 @@ export default function FocusSetting() {
 						id="f20"
 						name="f20"
 						value="20"
-						checked={focus === '20'}
-						onChange={handleChange}
+						checked={focusTime === '20'}
+						onChange={handleRadioChange}
 					/>
 					<label htmlFor="f20">
 						20 <span className="min">min</span>
@@ -62,8 +74,8 @@ export default function FocusSetting() {
 						id="f25"
 						name="f25"
 						value="25"
-						checked={focus === '25'}
-						onChange={handleChange}
+						checked={focusTime === '25'}
+						onChange={handleRadioChange}
 					/>
 					<label htmlFor="f25">
 						25 <span className="min">min</span>
@@ -75,17 +87,35 @@ export default function FocusSetting() {
 						id="f30"
 						name="f30"
 						value="30"
-						checked={focus === '30'}
-						onChange={handleChange}
+						checked={focusTime === '30'}
+						onChange={handleRadioChange}
 					/>
 					<label htmlFor="f30">
 						30 <span className="min">min</span>
 					</label>
 				</div>
-				{/* <div>
-            <input type="radio" name="f-custom" value="" />
-            <input type="number" min="1" max="999" value="" placeholder="Custom Time"/>
-          </div> */}
+				<div>
+					<input
+						type="radio"
+						name="f-custom"
+						id="f-custom"
+						value={customTime}
+						onChange={handleRadioChange}
+						checked={focusTime === ''}
+					/>
+					<label htmlFor="f-custom">
+						<input
+							type="number"
+							min="1"
+							max="999"
+							value={customTime}
+							placeholder="Custom Time"
+							onChange={handleNumberChange}
+							onFocus={() => setFocusTime('')}
+						/>
+						<span> min</span>
+					</label>
+				</div>
 			</div>
 		</section>
 	);

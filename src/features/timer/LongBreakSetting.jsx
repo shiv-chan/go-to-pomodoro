@@ -5,10 +5,22 @@ import { useDispatch } from 'react-redux';
 export default function LongBreakSetting() {
 	const dispatch = useDispatch();
 	const [longBreak, setLongBreak] = useState('30');
+	const [customTime, setCustomTime] = useState('');
 
-	const handleChange = (e) => {
+	const handleRadioChange = (e) => {
+		const { value, name } = e.currentTarget;
+		if (name === 'l-custom') {
+			setLongBreak('');
+		} else {
+			setLongBreak(value);
+		}
+		const timeInSecond = parseInt(value) * 60;
+		dispatch(set({ longBreak: timeInSecond }));
+	};
+
+	const handleNumberChange = (e) => {
 		const { value } = e.currentTarget;
-		setLongBreak(value);
+		setCustomTime(value);
 		const timeInSecond = parseInt(value) * 60;
 		dispatch(set({ longBreak: timeInSecond }));
 	};
@@ -24,7 +36,7 @@ export default function LongBreakSetting() {
 						name="l20"
 						value="20"
 						checked={longBreak === '20'}
-						onChange={handleChange}
+						onChange={handleRadioChange}
 					/>
 					<label htmlFor="l20">
 						20 <span className="min">min</span>
@@ -37,7 +49,7 @@ export default function LongBreakSetting() {
 						name="l30"
 						value="30"
 						checked={longBreak === '30'}
-						onChange={handleChange}
+						onChange={handleRadioChange}
 					/>
 					<label htmlFor="l30">
 						30 <span className="min">min</span>
@@ -50,16 +62,34 @@ export default function LongBreakSetting() {
 						name="l40"
 						value="40"
 						checked={longBreak === '40'}
-						onChange={handleChange}
+						onChange={handleRadioChange}
 					/>
 					<label htmlFor="l40">
 						40 <span className="min">min</span>
 					</label>
 				</div>
-				{/* <div>
-            <input type="radio" name="l-custom" value="" />
-            <input type="number" min="1" max="999" value="" placeholder="Custom Time"/>
-          </div> */}
+				<div>
+					<input
+						type="radio"
+						name="l-custom"
+						id="l-custom"
+						value={customTime}
+						onChange={handleRadioChange}
+						checked={longBreak === ''}
+					/>
+					<label htmlFor="l-custom">
+						<input
+							type="number"
+							min="1"
+							max="999"
+							value={customTime}
+							placeholder="Custom Time"
+							onChange={handleNumberChange}
+							onFocus={() => setLongBreak('')}
+						/>
+						<span> min</span>
+					</label>
+				</div>
 			</div>
 		</section>
 	);
