@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { set } from './timerSlice';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 export default function FocusSetting() {
+	const time = useSelector((state) => state.timer.focus);
 	const dispatch = useDispatch();
+	const refInput = useRef();
 	const [focusTime, setFocusTime] = useState('25');
 	const [customTime, setCustomTime] = useState('');
 
@@ -11,6 +13,7 @@ export default function FocusSetting() {
 		const { value, name } = e.currentTarget;
 		if (name === 'f-custom') {
 			setFocusTime('');
+			refInput.current.focus();
 		} else {
 			setFocusTime(value);
 		}
@@ -24,6 +27,15 @@ export default function FocusSetting() {
 		const timeInSecond = parseInt(value) * 60;
 		dispatch(set({ focus: timeInSecond }));
 	};
+
+	let ErrorMessage;
+	if (!time) {
+		ErrorMessage = <div className="error-message">Please set a time.</div>;
+	} else if (time <= 0 || time >= 999 * 60) {
+		ErrorMessage = (
+			<div className="error-message">Time should be up to 999 min.</div>
+		);
+	}
 
 	return (
 		<section className="time-setting">
@@ -108,13 +120,16 @@ export default function FocusSetting() {
 							type="number"
 							min="1"
 							max="999"
+							name="f-custom"
 							value={customTime}
 							placeholder="Custom Time"
 							onChange={handleNumberChange}
-							onFocus={() => setFocusTime('')}
+							onFocus={handleRadioChange}
+							ref={refInput}
 						/>
 						<span> min</span>
 					</label>
+					{ErrorMessage}
 				</div>
 			</div>
 		</section>

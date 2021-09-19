@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
@@ -12,6 +12,12 @@ import LongBgmSetting from './LongBgmSetting';
 export default function Setting() {
 	const timer = useSelector((state) => state.timer);
 	console.log(timer);
+	console.log(Object.values(timer).every(Boolean));
+	const [isAllFilled, setIsAllFilled] = useState(false);
+
+	useEffect(() => {
+		setIsAllFilled(Object.values(timer).every(Boolean));
+	}, [timer]);
 
 	return (
 		<main className="container">
@@ -22,7 +28,7 @@ export default function Setting() {
 			<FocusBgmSetting />
 			<ShortBgmSetting />
 			<LongBgmSetting />
-			<Link to="/timer">
+			<Link to="/timer" className={`${isAllFilled ? '' : 'isDisabled'}`}>
 				<button>Set</button>
 			</Link>
 		</main>

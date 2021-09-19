@@ -1,21 +1,22 @@
 import React, { useState, useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { set } from './timerSlice';
 
 export default function LongBgmSetting() {
+	const bgm = useSelector((state) => state.timer.longBreakBgm);
 	const dispatch = useDispatch();
 	const [longBgm, setLongBgm] = useState('');
 	const [customLongBgm, setCustomLongBgm] = useState('');
-	const refInput = useRef(null);
+	const refInput = useRef();
 
 	const handleSelectChange = (e) => {
 		const { value } = e.currentTarget;
 		setLongBgm(value);
 		if (value !== 'long-custom') {
-			dispatch(set({ longBgm: value }));
+			dispatch(set({ longBreakBgm: value }));
 			setCustomLongBgm('');
 		} else {
-			dispatch(set({ longBgm: '' }));
+			dispatch(set({ longBreakBgm: '' }));
 			refInput.current.focus();
 		}
 	};
@@ -23,7 +24,7 @@ export default function LongBgmSetting() {
 	const handleInputChange = (e) => {
 		const { value } = e.currentTarget;
 		setCustomLongBgm(value);
-		dispatch(set({ longBgm: value }));
+		dispatch(set({ longBreakBgm: value }));
 	};
 
 	return (
@@ -44,8 +45,13 @@ export default function LongBgmSetting() {
 				value={customLongBgm}
 				onChange={handleInputChange}
 				ref={refInput}
-				className={`${longBgm === 'long-custom' ? 'show' : 'hidden'}`}
+				className={`${longBgm === 'long-custom' ? 'shown' : 'hidden'}`}
 			/>
+			{longBgm === 'long-custom' && !bgm ? (
+				<div className="error-message">Please enter YouTube video link.</div>
+			) : (
+				''
+			)}
 		</section>
 	);
 }
