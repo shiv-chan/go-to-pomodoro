@@ -1,18 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { set } from './timerSlice';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 export default function ShortBreakSetting() {
+	const time = useSelector((state) => state.timer.shortBreak);
 	const dispatch = useDispatch();
-	const [shortBreak, setShortBreak] = useState('5');
+	const refInput = useRef();
+	const [shortBreakTime, setShortBreakTime] = useState('5');
 	const [customTime, setCustomTime] = useState('');
 
 	const handleRadioChange = (e) => {
 		const { value, name } = e.currentTarget;
 		if (name === 's-custom') {
-			setShortBreak('');
+			setShortBreakTime('');
+			refInput.current.focus();
 		} else {
-			setShortBreak(value);
+			setShortBreakTime(value);
 		}
 		const timeInSecond = parseInt(value) * 60;
 		dispatch(set({ shortBreak: timeInSecond }));
@@ -25,6 +28,15 @@ export default function ShortBreakSetting() {
 		dispatch(set({ shortBreak: timeInSecond }));
 	};
 
+	let ErrorMessage;
+	if (!time) {
+		ErrorMessage = <div className="error-message">Please set a time.</div>;
+	} else if (time <= 0 || time >= 999 * 60) {
+		ErrorMessage = (
+			<div className="error-message">Time should be up to 999 min.</div>
+		);
+	}
+
 	return (
 		<section className="time-setting">
 			<h2>Short Break Time</h2>
@@ -35,7 +47,7 @@ export default function ShortBreakSetting() {
 						id="s5"
 						name="s5"
 						value="5"
-						checked={shortBreak === '5'}
+						checked={shortBreakTime === '5'}
 						onChange={handleRadioChange}
 					/>
 					<label htmlFor="s5">
@@ -48,7 +60,7 @@ export default function ShortBreakSetting() {
 						id="s10"
 						name="s10"
 						value="10"
-						checked={shortBreak === '10'}
+						checked={shortBreakTime === '10'}
 						onChange={handleRadioChange}
 					/>
 					<label htmlFor="s10">
@@ -61,7 +73,7 @@ export default function ShortBreakSetting() {
 						id="s15"
 						name="s15"
 						value="15"
-						checked={shortBreak === '15'}
+						checked={shortBreakTime === '15'}
 						onChange={handleRadioChange}
 					/>
 					<label htmlFor="s15">
@@ -75,7 +87,7 @@ export default function ShortBreakSetting() {
 						id="s-custom"
 						value={customTime}
 						onChange={handleRadioChange}
-						checked={shortBreak === ''}
+						checked={shortBreakTime === ''}
 					/>
 					<label htmlFor="s-custom">
 						<input
@@ -85,10 +97,12 @@ export default function ShortBreakSetting() {
 							value={customTime}
 							placeholder="Custom Time"
 							onChange={handleNumberChange}
-							onFocus={() => setShortBreak('')}
+							onFocus={handleRadioChange}
+							ref={refInput}
 						/>
 						<span> min</span>
 					</label>
+					{ErrorMessage}
 				</div>
 			</div>
 		</section>

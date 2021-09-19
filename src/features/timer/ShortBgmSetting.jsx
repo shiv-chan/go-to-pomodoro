@@ -1,21 +1,22 @@
 import React, { useState, useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { set } from './timerSlice';
 
 export default function ShortBgmSetting() {
+	const bgm = useSelector((state) => state.timer.shortBreakBgm);
 	const dispatch = useDispatch();
 	const [shortBgm, setShortBgm] = useState('');
 	const [customShortBgm, setCustomShortBgm] = useState('');
-	const refInput = useRef(null);
+	const refInput = useRef();
 
 	const handleSelectChange = (e) => {
 		const { value } = e.currentTarget;
 		setShortBgm(value);
 		if (value !== 'short-custom') {
-			dispatch(set({ shortBgm: value }));
+			dispatch(set({ shortBreakBgm: value }));
 			setCustomShortBgm('');
 		} else {
-			dispatch(set({ shortBgm: '' }));
+			dispatch(set({ shortBreakBgm: '' }));
 			refInput.current.focus();
 		}
 	};
@@ -23,7 +24,7 @@ export default function ShortBgmSetting() {
 	const handleInputChange = (e) => {
 		const { value } = e.currentTarget;
 		setCustomShortBgm(value);
-		dispatch(set({ shortBgm: value }));
+		dispatch(set({ shortBreakBgm: value }));
 	};
 
 	return (
@@ -44,8 +45,13 @@ export default function ShortBgmSetting() {
 				value={customShortBgm}
 				onChange={handleInputChange}
 				ref={refInput}
-				className={`${shortBgm === 'short-custom' ? 'show' : 'hidden'}`}
+				className={`${shortBgm === 'short-custom' ? 'shown' : 'hidden'}`}
 			/>
+			{shortBgm === 'short-custom' && !bgm ? (
+				<div className="error-message">Please enter YouTube video link.</div>
+			) : (
+				''
+			)}
 		</section>
 	);
 }

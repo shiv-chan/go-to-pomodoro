@@ -1,18 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { set } from './timerSlice';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 export default function LongBreakSetting() {
+	const time = useSelector((state) => state.timer.longBreak);
 	const dispatch = useDispatch();
-	const [longBreak, setLongBreak] = useState('30');
+	const refInput = useRef();
+	const [longBreakTime, setLongBreakTime] = useState('30');
 	const [customTime, setCustomTime] = useState('');
 
 	const handleRadioChange = (e) => {
 		const { value, name } = e.currentTarget;
 		if (name === 'l-custom') {
-			setLongBreak('');
+			setLongBreakTime('');
+			refInput.current.focus();
 		} else {
-			setLongBreak(value);
+			setLongBreakTime(value);
 		}
 		const timeInSecond = parseInt(value) * 60;
 		dispatch(set({ longBreak: timeInSecond }));
@@ -25,6 +28,15 @@ export default function LongBreakSetting() {
 		dispatch(set({ longBreak: timeInSecond }));
 	};
 
+	let ErrorMessage;
+	if (!time) {
+		ErrorMessage = <div className="error-message">Please set a time.</div>;
+	} else if (time <= 0 || time >= 999 * 60) {
+		ErrorMessage = (
+			<div className="error-message">Time should be up to 999 min.</div>
+		);
+	}
+
 	return (
 		<section className="time-setting">
 			<h2>Long Break Time</h2>
@@ -35,7 +47,7 @@ export default function LongBreakSetting() {
 						id="l20"
 						name="l20"
 						value="20"
-						checked={longBreak === '20'}
+						checked={longBreakTime === '20'}
 						onChange={handleRadioChange}
 					/>
 					<label htmlFor="l20">
@@ -48,7 +60,7 @@ export default function LongBreakSetting() {
 						id="l30"
 						name="l30"
 						value="30"
-						checked={longBreak === '30'}
+						checked={longBreakTime === '30'}
 						onChange={handleRadioChange}
 					/>
 					<label htmlFor="l30">
@@ -61,7 +73,7 @@ export default function LongBreakSetting() {
 						id="l40"
 						name="l40"
 						value="40"
-						checked={longBreak === '40'}
+						checked={longBreakTime === '40'}
 						onChange={handleRadioChange}
 					/>
 					<label htmlFor="l40">
@@ -75,7 +87,7 @@ export default function LongBreakSetting() {
 						id="l-custom"
 						value={customTime}
 						onChange={handleRadioChange}
-						checked={longBreak === ''}
+						checked={longBreakTime === ''}
 					/>
 					<label htmlFor="l-custom">
 						<input
@@ -85,10 +97,12 @@ export default function LongBreakSetting() {
 							value={customTime}
 							placeholder="Custom Time"
 							onChange={handleNumberChange}
-							onFocus={() => setLongBreak('')}
+							onFocus={handleRadioChange}
+							ref={refInput}
 						/>
 						<span> min</span>
 					</label>
+					{ErrorMessage}
 				</div>
 			</div>
 		</section>

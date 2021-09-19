@@ -1,12 +1,13 @@
 import React, { useState, useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { set } from './timerSlice';
 
 export default function FocusBgmSetting() {
+	const bgm = useSelector((state) => state.timer.focusBgm);
 	const dispatch = useDispatch();
 	const [focusBgm, setFocusBgm] = useState('');
 	const [customFocusBgm, setCustomFocusBgm] = useState('');
-	const refInput = useRef(null);
+	const refInput = useRef();
 
 	const handleSelectChange = (e) => {
 		const { value } = e.currentTarget;
@@ -44,8 +45,13 @@ export default function FocusBgmSetting() {
 				value={customFocusBgm}
 				onChange={handleInputChange}
 				ref={refInput}
-				className={`${focusBgm === 'focus-custom' ? 'show' : 'hidden'}`}
+				className={`${focusBgm === 'focus-custom' ? 'shown' : 'hidden'}`}
 			/>
+			{focusBgm === 'focus-custom' && !bgm ? (
+				<div className="error-message">Please enter YouTube video link.</div>
+			) : (
+				''
+			)}
 		</section>
 	);
 }
