@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { set } from './timerSlice';
+import { set } from '../timerSlice';
 
 export default function FocusBgmSetting() {
 	const bgm = useSelector((state) => state.timer.focusBgm);
