@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -7,7 +7,7 @@ export default function Timer() {
 	const [session, setSession] = useState('focus'); // focus, short, long
 	const [setCounter, setSetCounter] = useState(0); // count the number of pomodoro sessions
 	const [timerState, setTimerState] = useState(''); // empty, pause, ticking
-	const [intervalId, setIntervalId] = useState('');
+	const [timeoutId, setTimeoutId] = useState('');
 	const [title, setTitle] = useState('');
 	const [remainingTime, setRemainingTime] = useState('');
 	const [displayTime, setDisplayTime] = useState({
@@ -35,31 +35,51 @@ export default function Timer() {
 
 	// convert seconds to min:sec form
 	function convertTime(time) {
+		let minite;
+		let second;
+		if (time / 60 < 1) {
+			minite = '00';
+		} else if (time / 60 < 10) {
+			minite = `0${time / 60}`;
+		} else {
+			minite = time / 60;
+		}
+
+		if (time % 60 < 1) {
+			second = '00';
+		} else if (time % 60 < 10) {
+			second = `0${time % 60}`;
+		} else {
+			second = time % 60;
+		}
+
 		setDisplayTime({
-			minite: Math.round(time / 60),
-			second: Math.round(time % 60),
+			minite,
+			second,
 		});
 	}
 
 	// countdown function
-	let countTimeInterval;
-
+	let countTimeout;
+	const nextTiming = () => 1000 - (Date.now() % 1000);
 	function countDown() {
 		let endTime = Date.parse(new Date()) + remainingTime * 1000;
-		// let remainingTime = time;
-		countTimeInterval = setInterval(() => {
-			setRemainingTime((endTime - Date.now()) / 1000);
+		// start in 1 sec
+		countTimeout = setTimeout(function main() {
+			countTimeout = setTimeout(main, 1000);
+			let leftTime = Math.round((endTime - Date.now()) / 1000);
+			setRemainingTime(leftTime);
+			setTimeoutId(countTimeout);
 		}, 1000);
-		setIntervalId(countTimeInterval);
 	}
 
 	useEffect(() => {
-		if (Math.round(remainingTime) <= 0) clearInterval(intervalId);
+		if (remainingTime <= 0) stopCountDown();
 		convertTime(remainingTime);
-	}, [remainingTime]);
+	}, [remainingTime, timeoutId]);
 
 	function stopCountDown() {
-		clearInterval(intervalId);
+		clearTimeout(timeoutId);
 	}
 
 	let Buttons;
@@ -120,10 +140,7 @@ export default function Timer() {
 		<main className={session}>
 			{title}
 			<article>
-				{displayTime.minite} :{' '}
-				{displayTime.second < 10
-					? `0${displayTime.second}`
-					: displayTime.second}
+				{displayTime.minite} : {displayTime.second}
 			</article>
 			<div>Video goes here</div>
 			{Buttons}
