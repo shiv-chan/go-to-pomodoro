@@ -26,17 +26,3 @@ const timerSlice = createSlice({
 
 export const { set } = timerSlice.actions;
 export default timerSlice.reducer;
-
-// countdown function
-function count(timeLeft, isTicking) {
-	let remaining = timeLeft;
-	const focusTimeCounter = setInterval(() => {
-		if (timeLeft === 0 || !isTicking) clearInterval(focusTimeCounter);
-		timeLeft = remaining - 1;
-	}, 1000);
-}
-
-// toggle countdown flag function
-function toggleTicking(flag) {
-	flag = !flag;
-}

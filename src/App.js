@@ -8,7 +8,7 @@ import {
 import Header from './app/Header';
 import Footer from './app/Footer';
 import Home from './app/Home';
-import Setting from './features/timer/Setting';
+import Setting from './features/timer/setting/Setting';
 import Timer from './features/timer/Timer';
 
 function ScrollToTop() {
