@@ -4,28 +4,26 @@ import { Link } from 'react-router-dom';
 
 export default function Timer() {
 	const timer = useSelector((state) => state.timer);
+	const [title, setTitle] = useState('');
 	const [session, setSession] = useState('focus'); // focus, short, long
 	const [setCounter, setSetCounter] = useState(0); // count the number of pomodoro sessions
 	const [timerState, setTimerState] = useState(''); // empty, pause, ticking
-	const [timeoutId, setTimeoutId] = useState('');
-	const [title, setTitle] = useState('');
-	const [remainingTime, setRemainingTime] = useState('');
-	const [displayTime, setDisplayTime] = useState({
-		minite: '',
-		second: '',
-	});
+	const [timeoutId, setTimeoutId] = useState(undefined);
+	const [lastUpdatedTime, setLastUpdatedTime] = useState(null);
+	const [elapsedTime, setElapsedTime] = useState(0);
+	const [totalTime, setTotalTime] = useState(null); // in millisecond
 
 	// switch appearence and set a time
 	function switchTimer() {
 		if (session === 'focus') {
 			setTitle(<h1>Focus</h1>);
-			setRemainingTime(timer.focus);
+			setTotalTime(timer.focus * 1000);
 		} else if (session === 'short') {
 			setTitle(<h1>Short Break</h1>);
-			setRemainingTime(timer.shortBreak);
+			setTotalTime(timer.shortBreak * 1000);
 		} else if (session === 'long') {
 			setTitle(<h1>Long Break</h1>);
-			setRemainingTime(timer.longBreak);
+			setTotalTime(timer.longBreak * 1000);
 		}
 	}
 
@@ -33,54 +31,28 @@ export default function Timer() {
 		switchTimer();
 	}, [session]);
 
-	// convert seconds to min:sec form
-	function convertTime(time) {
-		let minite;
-		let second;
-		if (time / 60 < 1) {
-			minite = '00';
-		} else if (time / 60 < 10) {
-			minite = `0${time / 60}`;
-		} else {
-			minite = time / 60;
-		}
-
-		if (time % 60 < 1) {
-			second = '00';
-		} else if (time % 60 < 10) {
-			second = `0${time % 60}`;
-		} else {
-			second = time % 60;
-		}
-
-		setDisplayTime({
-			minite,
-			second,
-		});
-	}
-
-	// countdown function
-	let countTimeout;
-	const nextTiming = () => 1000 - (Date.now() % 1000);
-	function countDown() {
-		let endTime = Date.parse(new Date()) + remainingTime * 1000;
-		// start in 1 sec
-		countTimeout = setTimeout(function main() {
-			countTimeout = setTimeout(main, 1000);
-			let leftTime = Math.round((endTime - Date.now()) / 1000);
-			setRemainingTime(leftTime);
-			setTimeoutId(countTimeout);
-		}, 1000);
-	}
+	const remainingTime = (totalTime - elapsedTime) / 1000; // in second
+	let minite = Math.floor(remainingTime / 60);
+	let second = Math.floor(remainingTime - minite * 60);
+	if (minite < 10) minite = `0${minite}`;
+	if (second < 10) second = `0${second}`;
 
 	useEffect(() => {
-		if (remainingTime <= 0) stopCountDown();
-		convertTime(remainingTime);
-	}, [remainingTime, timeoutId]);
-
-	function stopCountDown() {
-		clearTimeout(timeoutId);
-	}
+		if (remainingTime >= 1) {
+			const thisTimeoutId = setTimeout(() => {
+				setElapsedTime(
+					(prevState) => prevState + (Date.now() - lastUpdatedTime)
+				);
+				setLastUpdatedTime(Date.now());
+			}, 100);
+			setTimeoutId(thisTimeoutId);
+		} else {
+			clearTimeout(timeoutId);
+		}
+		return () => {
+			clearTimeout(timeoutId);
+		};
+	}, [lastUpdatedTime]);
 
 	let Buttons;
 	if (timerState === '') {
@@ -90,7 +62,7 @@ export default function Timer() {
 					key="start-button"
 					onClick={() => {
 						setTimerState('ticking');
-						countDown();
+						setLastUpdatedTime(Date.now());
 					}}
 				>
 					START
@@ -103,8 +75,11 @@ export default function Timer() {
 				<button
 					key="pause-button"
 					onClick={() => {
-						stopCountDown();
 						setTimerState('pause');
+						setElapsedTime(
+							(prevState) => prevState + (Date.now() - lastUpdatedTime)
+						);
+						clearTimeout(timeoutId);
 					}}
 				>
 					PAUSE
@@ -118,7 +93,7 @@ export default function Timer() {
 					key="resume-button"
 					onClick={() => {
 						setTimerState('ticking');
-						countDown();
+						setLastUpdatedTime(Date.now());
 					}}
 				>
 					RESUME
@@ -128,6 +103,7 @@ export default function Timer() {
 					onClick={() => {
 						setTimerState('');
 						switchTimer();
+						setElapsedTime(0);
 					}}
 				>
 					RESET
@@ -140,7 +116,7 @@ export default function Timer() {
 		<main className={session}>
 			{title}
 			<article>
-				{displayTime.minite} : {displayTime.second}
+				{minite}:{second}
 			</article>
 			<div>Video goes here</div>
 			{Buttons}
