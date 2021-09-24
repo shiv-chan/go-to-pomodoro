@@ -11,7 +11,7 @@ export default function Timer() {
 	const [timeoutId, setTimeoutId] = useState(undefined);
 	const [lastUpdatedTime, setLastUpdatedTime] = useState(null);
 	const [elapsedTime, setElapsedTime] = useState(0);
-	const [totalTime, setTotalTime] = useState(null); // in millisecond
+	const [totalTime, setTotalTime] = useState(undefined); // in millisecond
 
 	// switch appearence and set a time
 	function switchTimer() {
@@ -31,28 +31,47 @@ export default function Timer() {
 		switchTimer();
 	}, [session]);
 
+	// calculate minite and second
 	const remainingTime = (totalTime - elapsedTime) / 1000; // in second
 	let minite = Math.floor(remainingTime / 60);
 	let second = Math.floor(remainingTime - minite * 60);
 	if (minite < 10) minite = `0${minite}`;
 	if (second < 10) second = `0${second}`;
 
+	// countdown
 	useEffect(() => {
 		if (remainingTime >= 1) {
 			const thisTimeoutId = setTimeout(() => {
 				setElapsedTime(
-					(prevState) => prevState + (Date.now() - lastUpdatedTime)
+					(prevElapsedTime) => prevElapsedTime + (Date.now() - lastUpdatedTime)
 				);
 				setLastUpdatedTime(Date.now());
 			}, 100);
 			setTimeoutId(thisTimeoutId);
-		} else {
-			clearTimeout(timeoutId);
 		}
 		return () => {
 			clearTimeout(timeoutId);
 		};
 	}, [lastUpdatedTime]);
+
+	// when one session ends...
+	if (remainingTime < 1) {
+		clearTimeout(timeoutId);
+		setTimerState('ticking');
+		setElapsedTime(0);
+
+		if (session === 'focus') {
+			setSession('short');
+		} else if (session === 'short' && setCounter < 4) {
+			setSession('focus');
+			setSetCounter((prevNum) => prevNum + 1);
+		} else if (session === 'short' && setCounter === 4) {
+			setSession('long');
+			setSetCounter(0);
+		} else if (session === 'long') {
+			setSession('focus');
+		}
+	}
 
 	let Buttons;
 	if (timerState === '') {
@@ -77,7 +96,8 @@ export default function Timer() {
 					onClick={() => {
 						setTimerState('pause');
 						setElapsedTime(
-							(prevState) => prevState + (Date.now() - lastUpdatedTime)
+							(prevElapsedTime) =>
+								prevElapsedTime + (Date.now() - lastUpdatedTime)
 						);
 						clearTimeout(timeoutId);
 					}}

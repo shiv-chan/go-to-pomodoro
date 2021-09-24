@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
 	// set time in second
-	focus: 5,
+	focus: 1500,
 	shortBreak: 300,
 	longBreak: 1800,
 	// youtube IDs
