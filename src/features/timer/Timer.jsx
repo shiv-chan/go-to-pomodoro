@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Video from './Video';
 
@@ -7,8 +7,8 @@ export default function Timer() {
 	const timer = useSelector((state) => state.timer);
 	const [title, setTitle] = useState('');
 	const [session, setSession] = useState('focus'); // focus, short, long
-	const [setCounter, setSetCounter] = useState(0); // count the number of pomodoro sessions
 	const [timerState, setTimerState] = useState(''); // empty, pause, ticking
+	const [setCounter, setSetCounter] = useState(0); // count the number of pomodoro sessions
 	const [timeoutId, setTimeoutId] = useState(undefined);
 	const [lastUpdatedTime, setLastUpdatedTime] = useState(null);
 	const [elapsedTime, setElapsedTime] = useState(0);
@@ -74,17 +74,30 @@ export default function Timer() {
 		}
 	}
 
+	const startButtonHandler = () => {
+		setTimerState('ticking');
+		setLastUpdatedTime(Date.now());
+	};
+
+	const pauseButtonHandler = () => {
+		setTimerState('pause');
+		setElapsedTime(
+			(prevElapsedTime) => prevElapsedTime + (Date.now() - lastUpdatedTime)
+		);
+		clearTimeout(timeoutId);
+	};
+
+	const resetButtonHandler = () => {
+		setTimerState('');
+		switchTimer();
+		setElapsedTime(0);
+	};
+
 	let Buttons;
 	if (timerState === '') {
 		Buttons = (
 			<div>
-				<button
-					key="start-button"
-					onClick={() => {
-						setTimerState('ticking');
-						setLastUpdatedTime(Date.now());
-					}}
-				>
+				<button key="start-button" onClick={startButtonHandler}>
 					START
 				</button>
 			</div>
@@ -92,17 +105,7 @@ export default function Timer() {
 	} else if (timerState === 'ticking') {
 		Buttons = (
 			<div>
-				<button
-					key="pause-button"
-					onClick={() => {
-						setTimerState('pause');
-						setElapsedTime(
-							(prevElapsedTime) =>
-								prevElapsedTime + (Date.now() - lastUpdatedTime)
-						);
-						clearTimeout(timeoutId);
-					}}
-				>
+				<button key="pause-button" onClick={pauseButtonHandler}>
 					PAUSE
 				</button>
 			</div>
@@ -110,23 +113,10 @@ export default function Timer() {
 	} else if (timerState === 'pause') {
 		Buttons = (
 			<div>
-				<button
-					key="resume-button"
-					onClick={() => {
-						setTimerState('ticking');
-						setLastUpdatedTime(Date.now());
-					}}
-				>
+				<button key="resume-button" onClick={startButtonHandler}>
 					RESUME
 				</button>
-				<button
-					key="reset-button"
-					onClick={() => {
-						setTimerState('');
-						switchTimer();
-						setElapsedTime(0);
-					}}
-				>
+				<button key="reset-button" onClick={resetButtonHandler}>
 					RESET
 				</button>
 			</div>
@@ -139,7 +129,14 @@ export default function Timer() {
 			<article>
 				{minite}:{second}
 			</article>
-			<Video session={session} setCounter={setCounter} />
+			<Video
+				session={session}
+				setCounter={setCounter}
+				timerState={timerState}
+				startButtonHandler={startButtonHandler}
+				pauseButtonHandler={pauseButtonHandler}
+				resetButtonHandler={resetButtonHandler}
+			/>
 			{Buttons}
 			<Link to="/setting">Back to Set</Link>
 		</main>

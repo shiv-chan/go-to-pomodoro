@@ -3,7 +3,14 @@ import YouTube from 'react-youtube';
 import { useSelector } from 'react-redux';
 const youtubeID = require('youtube-id');
 
-export default function Video({ session, setCounter }) {
+export default function Video({
+	session,
+	setCounter,
+	timerState,
+	startButtonHandler,
+	pauseButtonHandler,
+	resetButtonHandler,
+}) {
 	const timer = useSelector((state) => state.timer);
 	let videoId;
 	let autoplay;
@@ -33,5 +40,17 @@ export default function Video({ session, setCounter }) {
 		},
 	};
 
-	return <YouTube videoId={videoId} opts={opts} />;
+	const controlVideoPlay = (e) => {
+		const playerState = e.target.getPlayerState();
+		if (playerState === 1 || playerState === -1 || playerState === 3) {
+			if (timerState === '') e.target.seekTo(0);
+			startButtonHandler();
+		} else if (playerState === 2) {
+			pauseButtonHandler();
+		}
+	};
+
+	return (
+		<YouTube videoId={videoId} opts={opts} onStateChange={controlVideoPlay} />
+	);
 }

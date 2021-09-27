@@ -6,7 +6,7 @@ const initialState = {
 	shortBreak: 300, // 300s
 	longBreak: 1800, // 1800s
 	// youtube IDs
-	focusBgm: 'https://www.youtube.com/watch?v=NOS1H47dCRA',
+	focusBgm: 'https://www.youtube.com/watch?v=P8j-_MOSrec',
 	shortBreakBgm: 'https://www.youtube.com/watch?v=UKONj4OA3y4',
 	longBreakBgm: 'https://www.youtube.com/watch?v=7voSN82FGF0',
 };
