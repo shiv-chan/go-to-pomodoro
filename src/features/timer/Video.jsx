@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import YouTube from 'react-youtube';
 import { useSelector } from 'react-redux';
 const youtubeID = require('youtube-id');
@@ -9,7 +9,6 @@ export default function Video({
 	timerState,
 	startButtonHandler,
 	pauseButtonHandler,
-	resetButtonHandler,
 }) {
 	const timer = useSelector((state) => state.timer);
 	let videoId;

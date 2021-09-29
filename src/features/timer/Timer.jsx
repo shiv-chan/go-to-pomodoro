@@ -135,7 +135,6 @@ export default function Timer() {
 				timerState={timerState}
 				startButtonHandler={startButtonHandler}
 				pauseButtonHandler={pauseButtonHandler}
-				resetButtonHandler={resetButtonHandler}
 			/>
 			{Buttons}
 			<Link to="/setting">Back to Set</Link>
