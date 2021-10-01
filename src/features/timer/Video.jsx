@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import YouTube from 'react-youtube';
 import { useSelector } from 'react-redux';
 const youtubeID = require('youtube-id');
@@ -9,6 +9,7 @@ export default function Video({
 	timerState,
 	startButtonHandler,
 	pauseButtonHandler,
+	setPlayer,
 }) {
 	const timer = useSelector((state) => state.timer);
 	let videoId;
@@ -39,6 +40,10 @@ export default function Video({
 		},
 	};
 
+	const getEvent = (e) => {
+		setPlayer(e.target);
+	};
+
 	const controlVideoPlay = (e) => {
 		const playerState = e.target.getPlayerState();
 		console.log(playerState);
@@ -53,6 +58,11 @@ export default function Video({
 	};
 
 	return (
-		<YouTube videoId={videoId} opts={opts} onStateChange={controlVideoPlay} />
+		<YouTube
+			videoId={videoId}
+			opts={opts}
+			onReady={getEvent}
+			onStateChange={controlVideoPlay}
+		/>
 	);
 }

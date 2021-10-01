@@ -13,6 +13,7 @@ export default function Timer() {
 	const [lastUpdatedTime, setLastUpdatedTime] = useState(null);
 	const [elapsedTime, setElapsedTime] = useState(0);
 	const [totalTime, setTotalTime] = useState(undefined); // in millisecond
+	const [player, setPlayer] = useState();
 
 	// switch appearence and set a time
 	function switchTimer() {
@@ -77,6 +78,7 @@ export default function Timer() {
 	const startButtonHandler = () => {
 		setTimerState('ticking');
 		setLastUpdatedTime(Date.now());
+		player.playVideo();
 	};
 
 	const pauseButtonHandler = () => {
@@ -85,12 +87,15 @@ export default function Timer() {
 			(prevElapsedTime) => prevElapsedTime + (Date.now() - lastUpdatedTime)
 		);
 		clearTimeout(timeoutId);
+		player.pauseVideo();
 	};
 
 	const resetButtonHandler = () => {
 		setTimerState('');
 		switchTimer();
 		setElapsedTime(0);
+		player.pauseVideo();
+		player.seekTo(0);
 	};
 
 	let Buttons;
@@ -135,6 +140,7 @@ export default function Timer() {
 				timerState={timerState}
 				startButtonHandler={startButtonHandler}
 				pauseButtonHandler={pauseButtonHandler}
+				setPlayer={setPlayer}
 			/>
 			{Buttons}
 			<Link to="/setting">Back to Set</Link>
