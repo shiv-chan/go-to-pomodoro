@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Slider from '@mui/material/Slider';
-import VolumeUp from '@mui/icons-material/VolumeUp';
-import VolumeOff from '@mui/icons-material/VolumeOff';
+import VolumeUpRoundedIcon from '@mui/icons-material/VolumeUpRounded';
+import VolumeOffRoundedIcon from '@mui/icons-material/VolumeOffRounded';
 
 export default function VolumeSlider({ player }) {
 	const [value, setValue] = useState(30);
@@ -44,9 +44,9 @@ export default function VolumeSlider({ player }) {
 		<Box sx={{ width: 200 }}>
 			<Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center">
 				{isMuted || value === 0 ? (
-					<VolumeOff onClick={handleClick} />
+					<VolumeOffRoundedIcon onClick={handleClick} />
 				) : (
-					<VolumeUp onClick={handleClick} />
+					<VolumeUpRoundedIcon onClick={handleClick} />
 				)}
 				<Slider
 					aria-label="Volume"
