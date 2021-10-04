@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Video from './Video';
+import VolumeSlider from '../../app/VolumeSlider';
 
 export default function Timer() {
 	const timer = useSelector((state) => state.timer);
@@ -142,6 +143,7 @@ export default function Timer() {
 				pauseButtonHandler={pauseButtonHandler}
 				setPlayer={setPlayer}
 			/>
+			<VolumeSlider player={player} />
 			{Buttons}
 			<Link to="/setting">Back to Set</Link>
 		</main>

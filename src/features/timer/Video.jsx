@@ -46,7 +46,6 @@ export default function Video({
 
 	const controlVideoPlay = (e) => {
 		const playerState = e.target.getPlayerState();
-		console.log(playerState);
 		if (playerState === 1 || playerState === -1 || playerState === 3) {
 			if (timerState === '') e.target.seekTo(0);
 			if (timerState !== 'ticking') {
