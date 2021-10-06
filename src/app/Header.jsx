@@ -7,7 +7,7 @@ import StyledLink from '../styles/StyledLink';
 export const StyledHeader = styled.header`
 	width: 100%;
 	height: 45px;
-	position: relative;
+	position: fixed;
 	background-color: ${({ session }) => {
 		if (session === 'focus') return 'var(--main-header-color)';
 		else if (session === 'short') return 'var(--short-header-color)';

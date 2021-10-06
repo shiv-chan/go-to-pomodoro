@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
+import StyledMain from '../../../styles/StyledMain';
 import FocusTimeSetting from './FocusTimeSetting';
 import ShortBreakSetting from './ShortBreakSetting';
 import LongBreakSetting from './LongBreakSetting';
@@ -20,7 +21,7 @@ export default function Setting() {
 	}, [timer]);
 
 	return (
-		<main className="container">
+		<StyledMain className="container">
 			<h1>Set a Timer</h1>
 			<FocusTimeSetting />
 			<ShortBreakSetting />
@@ -31,6 +32,6 @@ export default function Setting() {
 			<Link to="/timer" className={`${isAllFilled ? '' : 'isDisabled'}`}>
 				<button>Set</button>
 			</Link>
-		</main>
+		</StyledMain>
 	);
 }

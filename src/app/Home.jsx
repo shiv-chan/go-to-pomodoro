@@ -1,12 +1,92 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import styled from 'styled-components';
 import HeroImage from '../assets/hero-img.svg';
+import { Main } from '../styles/StyledMain';
+import { PillLink } from '../styles/StyledLink';
+
+const StyledSetTimerButton = styled(PillLink)`
+	position: relative;
+	top: initial;
+	right: initial;
+	width: auto;
+	display: inline-block;
+	padding: 0.5rem 2rem;
+	margin: 5rem auto;
+`;
+
+const SetTimerButton = ({ text, link }) => {
+	const timer = useSelector((state) => state.timer);
+	const session = timer.currentSession;
+
+	return (
+		<StyledSetTimerButton to={link} session={session}>
+			{text}
+		</StyledSetTimerButton>
+	);
+};
+
+const StyledMainHome = styled(Main)`
+	display: flex;
+	flex-direction: column;
+	justufy-content: center;
+	padding: 7rem;
+	padding-bottom: 0;
+	text-align: center;
+
+	.hero {
+		h1 {
+			font-weight: bold;
+			font-size: 2rem;
+			text-align: start;
+			display: inline-block;
+			width: auto;
+		}
+	}
+
+	img {
+		margin: 2rem 0;
+	}
+
+	li,
+	p {
+		font-size: 1.5rem;
+		font-weight: 400;
+		text-align: start;
+		font-family: var(--secondary-font);
+		line-height: 2.2rem;
+	}
+
+	.how-to {
+		h2 {
+			font-size: 1.8rem;
+			font-weight: 700;
+		}
+
+		ol {
+			margin: 2rem 0;
+		}
+	}
+`;
+
+const MainHome = ({ children }) => {
+	const timer = useSelector((state) => state.timer);
+	const session = timer.currentSession;
+
+	return <StyledMainHome session={session}>{children}</StyledMainHome>;
+};
 
 export default function Home() {
 	return (
-		<main className="home">
+		<MainHome className="home">
 			<section className="hero">
-				<h1>Focus with Your Own Music</h1>
+				<h1>
+					Focus
+					<br />
+					with
+					<br />
+					Your Own Music
+				</h1>
 				<img src={HeroImage} alt="hero" />
 				<div className="description">
 					<p>
@@ -17,9 +97,7 @@ export default function Home() {
 						with YouTube video link.
 					</p>
 				</div>
-				<Link to="/setting">
-					<button>Set a Timer Now</button>
-				</Link>
+				<SetTimerButton text="Set a Timer Now" link="/setting" />
 			</section>
 			<section className="how-to">
 				<h2>How to Use</h2>
@@ -36,10 +114,8 @@ export default function Home() {
 					<img src={HeroImage} alt="hero" />
 					<li>Click “Set” button and focus!</li>
 				</ol>
-				<Link to="/setting">
-					<button>Set a Timer Now</button>
-				</Link>
+				<SetTimerButton text="Set a Timer Now" link="/setting" />
 			</section>
-		</main>
+		</MainHome>
 	);
 }

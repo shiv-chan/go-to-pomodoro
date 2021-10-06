@@ -4,6 +4,7 @@ import { set } from './timerSlice';
 import { Link } from 'react-router-dom';
 import Video from './Video';
 import VolumeSlider from '../../app/VolumeSlider';
+import StyledMain from '../../styles/StyledMain';
 
 export default function Timer() {
 	const timer = useSelector((state) => state.timer);
@@ -132,7 +133,7 @@ export default function Timer() {
 	}
 
 	return (
-		<main className={session}>
+		<StyledMain className={session}>
 			{title}
 			<article>
 				{minite}:{second}
@@ -147,6 +148,6 @@ export default function Timer() {
 			<VolumeSlider player={player} />
 			{Buttons}
 			<Link to="/setting">Back to Set</Link>
-		</main>
+		</StyledMain>
 	);
 }

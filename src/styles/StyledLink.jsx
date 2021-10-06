@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import '../style.css';
 
-const PillLink = styled(Link)`
+export const PillLink = styled(Link)`
 	font-weight: bold;
 	font-size: 1.2rem;
 	text-align: center;

@@ -4,6 +4,7 @@ import { StyledHeader } from './Header';
 import styled from 'styled-components';
 
 const StyledFooter = styled(StyledHeader)`
+	position: relative;
 	bottom: 0;
 	text-align: center;
 `;
