@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 const youtubeID = require('youtube-id');
 
 export default function Video({
-	session,
 	setCounter,
 	timerState,
 	startButtonHandler,
@@ -12,6 +11,7 @@ export default function Video({
 	setPlayer,
 }) {
 	const timer = useSelector((state) => state.timer);
+	const session = timer.currentSession;
 	let videoId;
 	let autoplay;
 

@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { set } from './timerSlice';
 import { Link } from 'react-router-dom';
 import Video from './Video';
 import VolumeSlider from '../../app/VolumeSlider';
 
 export default function Timer() {
 	const timer = useSelector((state) => state.timer);
+	const session = timer.currentSession;
+	const dispatch = useDispatch();
 	const [title, setTitle] = useState('');
-	const [session, setSession] = useState('focus'); // focus, short, long
 	const [timerState, setTimerState] = useState(''); // empty, pause, ticking
 	const [setCounter, setSetCounter] = useState(0); // count the number of pomodoro sessions
 	const [timeoutId, setTimeoutId] = useState(undefined);
@@ -63,16 +65,16 @@ export default function Timer() {
 		setTimerState('ticking');
 		setElapsedTime(0);
 
-		if (session === 'focus') {
-			setSession('short');
-		} else if (session === 'short' && setCounter < 4) {
-			setSession('focus');
+		if (session === 'focus' && setCounter < 3) {
+			dispatch(set({ currentSession: 'short' }));
 			setSetCounter((prevNum) => prevNum + 1);
-		} else if (session === 'short' && setCounter === 4) {
-			setSession('long');
+		} else if (session === 'focus' && setCounter === 3) {
+			dispatch(set({ currentSession: 'long' }));
 			setSetCounter(0);
+		} else if (session === 'short') {
+			dispatch(set({ currentSession: 'focus' }));
 		} else if (session === 'long') {
-			setSession('focus');
+			dispatch(set({ currentSession: 'focus' }));
 		}
 	}
 
@@ -136,7 +138,6 @@ export default function Timer() {
 				{minite}:{second}
 			</article>
 			<Video
-				session={session}
 				setCounter={setCounter}
 				timerState={timerState}
 				startButtonHandler={startButtonHandler}
