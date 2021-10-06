@@ -24,7 +24,12 @@
 	box-sizing: border-box;
 	font-size: 62.5%;
 	font-family: var(--primary-font);
-	width: 100vw;
+	width: 100%;
+}
+
+html,
+body {
+	min-height: 100vh;
 }
 
 .logo {
@@ -32,4 +37,8 @@
 	font-size: 1.2rem;
 	color: inherit;
 	text-decoration: none;
+}
+
+main {
+	min-height: calc(100vh - 90px);
 }

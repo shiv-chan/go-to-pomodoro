@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import StyledLink from '../styles/StyledLink';
 
-const StyledHeader = styled.header`
+export const StyledHeader = styled.header`
 	width: 100%;
 	height: 45px;
 	position: relative;
