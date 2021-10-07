@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
@@ -7,6 +7,7 @@ import StyledLink from '../styles/StyledLink';
 export const StyledHeader = styled.header`
 	width: 100%;
 	height: 45px;
+	z-index: 10;
 	position: fixed;
 	background-color: ${({ session }) => {
 		if (session === 'focus') return 'var(--main-header-color)';

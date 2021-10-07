@@ -5,7 +5,7 @@ import HeroImage from '../assets/hero-img.svg';
 import { Main } from '../styles/StyledMain';
 import { PillLink } from '../styles/StyledLink';
 
-const StyledSetTimerButton = styled(PillLink)`
+export const StyledSetTimerButton = styled(PillLink)`
 	position: relative;
 	top: initial;
 	right: initial;

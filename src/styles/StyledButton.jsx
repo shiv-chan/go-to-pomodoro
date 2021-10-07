@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import '../style.css';
+import '../style.scss';
 
 const Button = styled.button`
 	display: inline-block;

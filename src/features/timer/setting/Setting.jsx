@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import styled from 'styled-components';
 
-import StyledMain from '../../../styles/StyledMain';
+import { Main } from '../../../styles/StyledMain';
+import { StyledSetTimerButton } from '../../../app/Home';
 import FocusTimeSetting from './FocusTimeSetting';
 import ShortBreakSetting from './ShortBreakSetting';
 import LongBreakSetting from './LongBreakSetting';
@@ -10,18 +11,62 @@ import FocusBgmSetting from './FocusBgmSetting';
 import ShortBgmSetting from './ShortBgmSetting';
 import LongBgmSetting from './LongBgmSetting';
 
+const StyledSetButton = styled(StyledSetTimerButton)`
+	padding: 0.5rem 3rem;
+	letter-spacing: 0.4rem;
+	font-size: 1.5rem;
+	margin-bottom: 0;
+
+	&.isDisabled {
+		cursor: not-allowed;
+		background-color: #d4d4d4;
+	}
+`;
+
+const SetButton = ({ text, link, className }) => {
+	const timer = useSelector((state) => state.timer);
+	const session = timer.currentSession;
+
+	return (
+		<StyledSetButton to={link} session={session} className={className}>
+			{text}
+		</StyledSetButton>
+	);
+};
+
+const StyledMainSetting = styled(Main)`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 45px 5rem 5rem;
+
+	h1 {
+		font-weight: bold;
+		font-size: 2rem;
+		text-align: center;
+		margin: 3rem 0;
+	}
+`;
+
+const MainSetting = ({ children }) => {
+	const timer = useSelector((state) => state.timer);
+	const session = timer.currentSession;
+
+	return <StyledMainSetting session={session}>{children}</StyledMainSetting>;
+};
+
 export default function Setting() {
 	const timer = useSelector((state) => state.timer);
+	const [isAllFilled, setIsAllFilled] = useState(false);
 	console.log(timer);
 	console.log(Object.values(timer).every(Boolean));
-	const [isAllFilled, setIsAllFilled] = useState(false);
 
 	useEffect(() => {
 		setIsAllFilled(Object.values(timer).every(Boolean));
 	}, [timer]);
 
 	return (
-		<StyledMain className="container">
+		<MainSetting className="container">
 			<h1>Set a Timer</h1>
 			<FocusTimeSetting />
 			<ShortBreakSetting />
@@ -29,9 +74,11 @@ export default function Setting() {
 			<FocusBgmSetting />
 			<ShortBgmSetting />
 			<LongBgmSetting />
-			<Link to="/timer" className={`${isAllFilled ? '' : 'isDisabled'}`}>
-				<button>Set</button>
-			</Link>
-		</StyledMain>
+			<SetButton
+				text="Set"
+				link={`${isAllFilled ? '/timer' : '#'}`}
+				className={`${isAllFilled ? '' : 'isDisabled'}`}
+			/>
+		</MainSetting>
 	);
 }

@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 export default function FocusSetting() {
 	const time = useSelector((state) => state.timer.focus);
+	const session = useSelector((state) => state.timer.currentSession);
 	const dispatch = useDispatch();
 	const refInput = useRef();
 	const [focusTime, setFocusTime] = useState('25');
@@ -40,8 +41,8 @@ export default function FocusSetting() {
 	return (
 		<section className="time-setting">
 			<h2>Focus Time</h2>
-			<div className="time-options">
-				<div>
+			<div className={`time-options ${session}`}>
+				<div className={`${focusTime === '10' ? 'selected' : ''}`}>
 					<input
 						type="radio"
 						id="f10"
@@ -54,7 +55,7 @@ export default function FocusSetting() {
 						10 <span className="min">min</span>
 					</label>
 				</div>
-				<div>
+				<div className={`${focusTime === '15' ? 'selected' : ''}`}>
 					<input
 						type="radio"
 						id="f15"
@@ -67,7 +68,7 @@ export default function FocusSetting() {
 						15 <span className="min">min</span>
 					</label>
 				</div>
-				<div>
+				<div className={`${focusTime === '20' ? 'selected' : ''}`}>
 					<input
 						type="radio"
 						id="f20"
@@ -80,7 +81,7 @@ export default function FocusSetting() {
 						20 <span className="min">min</span>
 					</label>
 				</div>
-				<div>
+				<div className={`${focusTime === '25' ? 'selected' : ''}`}>
 					<input
 						type="radio"
 						id="f25"
@@ -93,7 +94,7 @@ export default function FocusSetting() {
 						25 <span className="min">min</span>
 					</label>
 				</div>
-				<div>
+				<div className={`${focusTime === '30' ? 'selected' : ''}`}>
 					<input
 						type="radio"
 						id="f30"
@@ -106,7 +107,7 @@ export default function FocusSetting() {
 						30 <span className="min">min</span>
 					</label>
 				</div>
-				<div>
+				<div className={`${focusTime === '' ? 'selected' : ''}`}>
 					<input
 						type="radio"
 						name="f-custom"
@@ -127,7 +128,7 @@ export default function FocusSetting() {
 							onFocus={handleRadioChange}
 							ref={refInput}
 						/>
-						<span> min</span>
+						{/* <span> min</span> */}
 					</label>
 					{ErrorMessage}
 				</div>

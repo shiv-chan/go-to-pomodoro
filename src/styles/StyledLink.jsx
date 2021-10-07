@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import '../style.css';
+import '../style.scss';
 
 export const PillLink = styled(Link)`
 	font-weight: bold;

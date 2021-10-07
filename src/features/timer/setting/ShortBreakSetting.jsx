@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 export default function ShortBreakSetting() {
 	const time = useSelector((state) => state.timer.shortBreak);
+	const session = useSelector((state) => state.timer.currentSession);
 	const dispatch = useDispatch();
 	const refInput = useRef();
 	const [shortBreakTime, setShortBreakTime] = useState('5');
@@ -40,8 +41,8 @@ export default function ShortBreakSetting() {
 	return (
 		<section className="time-setting">
 			<h2>Short Break Time</h2>
-			<div className="time-options">
-				<div>
+			<div className={`time-options ${session}`}>
+				<div className={`${shortBreakTime === '5' ? 'selected' : ''}`}>
 					<input
 						type="radio"
 						id="s5"
@@ -54,7 +55,7 @@ export default function ShortBreakSetting() {
 						5 <span className="min">min</span>
 					</label>
 				</div>
-				<div>
+				<div className={`${shortBreakTime === '10' ? 'selected' : ''}`}>
 					<input
 						type="radio"
 						id="s10"
@@ -67,7 +68,7 @@ export default function ShortBreakSetting() {
 						10 <span className="min">min</span>
 					</label>
 				</div>
-				<div>
+				<div className={`${shortBreakTime === '15' ? 'selected' : ''}`}>
 					<input
 						type="radio"
 						id="s15"
@@ -80,7 +81,7 @@ export default function ShortBreakSetting() {
 						15 <span className="min">min</span>
 					</label>
 				</div>
-				<div>
+				<div className={`${shortBreakTime === '' ? 'selected' : ''}`}>
 					<input
 						type="radio"
 						name="s-custom"
@@ -100,7 +101,7 @@ export default function ShortBreakSetting() {
 							onFocus={handleRadioChange}
 							ref={refInput}
 						/>
-						<span> min</span>
+						{/* <span> min</span> */}
 					</label>
 					{ErrorMessage}
 				</div>
