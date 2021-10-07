@@ -5,7 +5,14 @@ import '../style.scss';
 
 const Button = styled.button`
 	display: inline-block;
-	width: 10%;
+	width: auto;
+	font-weight: bold;
+	font-size: 1.8rem;
+	border: none;
+	border-radius: 2rem;
+	cursor: pointer;
+	padding: 0.5rem 3rem;
+	margin-bottom: 1rem;
 	background-color: ${({ session }) => {
 		if (session === 'focus') return 'var(--main-accent-color)';
 		else if (session === 'short') return 'var(--short-color)';
@@ -18,9 +25,13 @@ const Button = styled.button`
 	}};
 `;
 
-export default function StyledButton({ text }) {
+export default function StyledButton({ onClick, text, ...otherProps }) {
 	const timer = useSelector((state) => state.timer);
 	const session = timer.currentSession;
 
-	return <Button session={session}>{text}</Button>;
+	return (
+		<Button onClick={onClick} session={session} {...otherProps}>
+			{text}
+		</Button>
+	);
 }

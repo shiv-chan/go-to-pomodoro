@@ -1,10 +1,37 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { set } from './timerSlice';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 import Video from './Video';
 import VolumeSlider from '../../app/VolumeSlider';
-import StyledMain from '../../styles/StyledMain';
+import { Main } from '../../styles/StyledMain';
+import StyledButton from '../../styles/StyledButton';
+import ArrowLeftRoundedIcon from '@mui/icons-material/ArrowLeftRounded';
+
+const StyledMainTimer = styled(Main)`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+
+	h1 {
+		font-size: 2.5rem;
+		margin: 3rem auto;
+	}
+
+	article.time {
+		font-size: 5rem;
+		margin-bottom: 3rem;
+	}
+`;
+
+const MainTimer = ({ children }) => {
+	const timer = useSelector((state) => state.timer);
+	const session = timer.currentSession;
+
+	return <StyledMainTimer session={session}>{children}</StyledMainTimer>;
+};
 
 export default function Timer() {
 	const timer = useSelector((state) => state.timer);
@@ -33,7 +60,7 @@ export default function Timer() {
 		}
 	}
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		switchTimer();
 	}, [session]);
 
@@ -105,37 +132,45 @@ export default function Timer() {
 	let Buttons;
 	if (timerState === '') {
 		Buttons = (
-			<div>
-				<button key="start-button" onClick={startButtonHandler}>
-					START
-				</button>
+			<div className="buttons">
+				<StyledButton
+					key="start-button"
+					onClick={startButtonHandler}
+					text="START"
+				/>
 			</div>
 		);
 	} else if (timerState === 'ticking') {
 		Buttons = (
-			<div>
-				<button key="pause-button" onClick={pauseButtonHandler}>
-					PAUSE
-				</button>
+			<div className="buttons">
+				<StyledButton
+					key="pause-button"
+					onClick={pauseButtonHandler}
+					text="PAUSE"
+				/>
 			</div>
 		);
 	} else if (timerState === 'pause') {
 		Buttons = (
-			<div>
-				<button key="resume-button" onClick={startButtonHandler}>
-					RESUME
-				</button>
-				<button key="reset-button" onClick={resetButtonHandler}>
-					RESET
-				</button>
+			<div className="buttons">
+				<StyledButton
+					key="resume-button"
+					onClick={startButtonHandler}
+					text="RESUME"
+				/>
+				<StyledButton
+					key="reset-button"
+					onClick={resetButtonHandler}
+					text="RESET"
+				/>
 			</div>
 		);
 	}
 
 	return (
-		<StyledMain className={session}>
+		<MainTimer className={session}>
 			{title}
-			<article>
+			<article className="time">
 				{minite}:{second}
 			</article>
 			<Video
@@ -147,7 +182,10 @@ export default function Timer() {
 			/>
 			<VolumeSlider player={player} />
 			{Buttons}
-			<Link to="/setting">Back to Set</Link>
-		</StyledMain>
+			<Link className="back-to-set" to="/setting">
+				<ArrowLeftRoundedIcon />
+				Back to Set
+			</Link>
+		</MainTimer>
 	);
 }

@@ -196,6 +196,7 @@ body {
 	}
 }
 
+// switch bgm setting color
 .bgm-setting.focus {
 	select,
 	input[type='text'] {
@@ -235,10 +236,27 @@ body {
 	}
 }
 
+// shown and hide class
 .shown {
 	display: block;
 }
 
 .hidden {
 	display: none !important;
+}
+
+// buttons for a timer
+.buttons {
+	display: flex;
+	justify-content: center;
+	margin: 2rem auto;
+	gap: 2rem;
+}
+
+.back-to-set {
+	font-size: 1.5rem;
+	width: auto;
+	text-decoration: none;
+	display: flex;
+	align-items: center;
 }

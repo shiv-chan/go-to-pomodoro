@@ -24,8 +24,6 @@ export default function VolumeSlider({ player }) {
 		} else {
 			setValue(30);
 		}
-
-		console.log(`isMuted: ${isMuted}`);
 	}, [isMuted]);
 
 	useEffect(() => {
@@ -40,9 +38,6 @@ export default function VolumeSlider({ player }) {
 				player.unMute();
 				player.setVolume(value);
 			}
-
-			console.log(`volume: ${value}`);
-			console.log(`player volume: ${player.getVolume()}`);
 		}
 	}, [value]);
 
