@@ -39,6 +39,7 @@ body {
 	text-decoration: none;
 }
 
+// time setting
 .time-setting {
 	h2 {
 		color: #000 !important;
@@ -100,17 +101,6 @@ body {
 					}
 				}
 			}
-
-			.error-message {
-				position: absolute;
-				border: none;
-				width: 100px;
-				right: 1rem;
-				bottom: -3.5rem;
-				color: red;
-				font-weight: bold;
-				font-size: 1.2rem;
-			}
 		}
 	}
 }
@@ -162,4 +152,93 @@ body {
 			}
 		}
 	}
+}
+
+.error-message {
+	position: absolute;
+	border: none !important;
+	width: 100px;
+	right: 1rem;
+	bottom: -3.5rem;
+	color: red;
+	font-weight: bold;
+	font-size: 1.2rem;
+}
+
+// bgm setting
+.bgm-setting {
+	position: relative;
+	margin-bottom: 3rem;
+
+	h2 {
+		color: #000 !important;
+		font-size: 1.5rem;
+	}
+
+	select,
+	input[type='text'] {
+		display: block;
+		width: 80%;
+		height: 3rem;
+		margin: 1.5rem auto;
+		border-radius: 0.5rem;
+		padding: 0.1rem 0.5rem;
+		font-size: 1.5rem;
+		outline: none;
+		background-color: transparent;
+	}
+
+	.error-message {
+		width: auto;
+		left: 0;
+		bottom: -0.5rem;
+		text-align: center;
+	}
+}
+
+.bgm-setting.focus {
+	select,
+	input[type='text'] {
+		border: 1px solid var(--main-accent-color);
+	}
+
+	select.selected {
+		background-color: var(--main-accent-color);
+		color: var(--main-bg-color);
+		font-weight: bold;
+	}
+}
+
+.bgm-setting.short {
+	select,
+	input[type='text'] {
+		border: 1px solid var(--short-color);
+	}
+
+	select.selected {
+		background-color: var(--short-color);
+		color: var(--short-bg-color);
+		font-weight: bold;
+	}
+}
+
+.bgm-setting.long {
+	select,
+	input[type='text'] {
+		border: 1px solid var(--long-color);
+	}
+
+	select.selected {
+		background-color: var(--long-color);
+		color: var(--long-bg-color);
+		font-weight: bold;
+	}
+}
+
+.shown {
+	display: block;
+}
+
+.hidden {
+	display: none !important;
 }

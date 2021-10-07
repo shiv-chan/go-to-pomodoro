@@ -4,6 +4,7 @@ import { set } from '../timerSlice';
 
 export default function FocusBgmSetting() {
 	const bgm = useSelector((state) => state.timer.focusBgm);
+	const session = useSelector((state) => state.timer.currentSession);
 	const dispatch = useDispatch();
 	const [focusBgm, setFocusBgm] = useState('');
 	const [customFocusBgm, setCustomFocusBgm] = useState('');
@@ -28,9 +29,13 @@ export default function FocusBgmSetting() {
 	};
 
 	return (
-		<section className="bgm-setting">
+		<section className={`bgm-setting ${session}`}>
 			<h2>Focus BGM</h2>
-			<select value={focusBgm} onChange={handleSelectChange}>
+			<select
+				value={focusBgm}
+				onChange={handleSelectChange}
+				className={`${bgm !== '' ? 'selected' : ''}`}
+			>
 				<option value="" disabled>
 					Select YouTube Video
 				</option>

@@ -4,6 +4,7 @@ import { set } from '../timerSlice';
 
 export default function ShortBgmSetting() {
 	const bgm = useSelector((state) => state.timer.shortBreakBgm);
+	const session = useSelector((state) => state.timer.currentSession);
 	const dispatch = useDispatch();
 	const [shortBgm, setShortBgm] = useState('');
 	const [customShortBgm, setCustomShortBgm] = useState('');
@@ -28,9 +29,13 @@ export default function ShortBgmSetting() {
 	};
 
 	return (
-		<section className="bgm-setting">
+		<section className={`bgm-setting ${session}`}>
 			<h2>Short Break BGM</h2>
-			<select value={shortBgm} onChange={handleSelectChange}>
+			<select
+				value={shortBgm}
+				onChange={handleSelectChange}
+				className={`${bgm !== '' ? 'selected' : ''}`}
+			>
 				<option value="" disabled>
 					Select YouTube Video
 				</option>
