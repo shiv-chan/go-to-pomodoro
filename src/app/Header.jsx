@@ -23,19 +23,21 @@ export const StyledHeader = styled.header`
 	}};
 	align-items: center;
 	padding: 15px 25px;
-	cursor: pointer;
+
+	@media only screen and (min-width: 768px) {
+		height: 80px;
+	}
 `;
 
 export default function Header() {
-	const timer = useSelector((state) => state.timer);
-	const session = timer.currentSession;
+	const session = useSelector((state) => state.timer.currentSession);
 
 	return (
 		<StyledHeader session={session}>
 			<Link className="logo" to="/">
 				Go-to Promodoro
 			</Link>
-			<StyledLink text="Set a Timer" link="/setting" />
+			{/* <StyledLink text="Set a Timer" link="/setting" /> */}
 		</StyledHeader>
 	);
 }

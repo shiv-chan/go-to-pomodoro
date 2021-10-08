@@ -28,13 +28,6 @@ const StyledMainTimer = styled(Main)`
 	}
 `;
 
-const MainTimer = ({ children }) => {
-	const timer = useSelector((state) => state.timer);
-	const session = timer.currentSession;
-
-	return <StyledMainTimer session={session}>{children}</StyledMainTimer>;
-};
-
 export default function Timer() {
 	const timer = useSelector((state) => state.timer);
 	const session = timer.currentSession;
@@ -175,29 +168,31 @@ export default function Timer() {
 	}
 
 	return (
-		<MainTimer className={session}>
-			{title}
-			<article className="time">
-				{minite}:{second}
-			</article>
-			<Video
-				setCounter={setCounter}
-				timerState={timerState}
-				startButtonHandler={startButtonHandler}
-				pauseButtonHandler={pauseButtonHandler}
-				setPlayer={setPlayer}
-			/>
-			{player ? (
-				<>
-					<VolumeSlider player={player} /> {Buttons}
-				</>
-			) : (
-				''
-			)}
-			<Link className="back-to-set" to="/setting">
-				<ArrowLeftRoundedIcon sx={{ fontSize: '3rem' }} />
-				Back to Set
-			</Link>
-		</MainTimer>
+		<div className={`main-wrapper ${session}`}>
+			<StyledMainTimer className={session}>
+				{title}
+				<article className="time">
+					{minite}:{second}
+				</article>
+				<Video
+					setCounter={setCounter}
+					timerState={timerState}
+					startButtonHandler={startButtonHandler}
+					pauseButtonHandler={pauseButtonHandler}
+					setPlayer={setPlayer}
+				/>
+				{player ? (
+					<>
+						<VolumeSlider player={player} /> {Buttons}
+					</>
+				) : (
+					''
+				)}
+				<Link className="back-to-set" to="/setting">
+					<ArrowLeftRoundedIcon sx={{ fontSize: '3rem' }} />
+					Back to Set
+				</Link>
+			</StyledMainTimer>
+		</div>
 	);
 }

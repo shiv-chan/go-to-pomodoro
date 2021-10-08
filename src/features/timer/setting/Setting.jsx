@@ -24,8 +24,7 @@ const StyledSetButton = styled(StyledSetTimerButton)`
 `;
 
 const SetButton = ({ text, link, className }) => {
-	const timer = useSelector((state) => state.timer);
-	const session = timer.currentSession;
+	const session = useSelector((state) => state.timer.currentSession);
 
 	return (
 		<StyledSetButton to={link} session={session} className={className}>
@@ -48,37 +47,31 @@ const StyledMainSetting = styled(Main)`
 	}
 `;
 
-const MainSetting = ({ children }) => {
-	const timer = useSelector((state) => state.timer);
-	const session = timer.currentSession;
-
-	return <StyledMainSetting session={session}>{children}</StyledMainSetting>;
-};
-
 export default function Setting() {
 	const timer = useSelector((state) => state.timer);
+	const session = timer.currentSession;
 	const [isAllFilled, setIsAllFilled] = useState(false);
-	console.log(timer);
-	console.log(Object.values(timer).every(Boolean));
 
 	useEffect(() => {
 		setIsAllFilled(Object.values(timer).every(Boolean));
 	}, [timer]);
 
 	return (
-		<MainSetting className="container">
-			<h1>Set a Timer</h1>
-			<FocusTimeSetting />
-			<ShortBreakSetting />
-			<LongBreakSetting />
-			<FocusBgmSetting />
-			<ShortBgmSetting />
-			<LongBgmSetting />
-			<SetButton
-				text="Set"
-				link={`${isAllFilled ? '/timer' : '#'}`}
-				className={`${isAllFilled ? '' : 'isDisabled'}`}
-			/>
-		</MainSetting>
+		<div className={`main-wrapper ${session}`}>
+			<StyledMainSetting className="container">
+				<h1>Set a Timer</h1>
+				<FocusTimeSetting />
+				<ShortBreakSetting />
+				<LongBreakSetting />
+				<FocusBgmSetting />
+				<ShortBgmSetting />
+				<LongBgmSetting />
+				<SetButton
+					text="Set"
+					link={`${isAllFilled ? '/timer' : '#'}`}
+					className={`${isAllFilled ? '' : 'isDisabled'}`}
+				/>
+			</StyledMainSetting>
+		</div>
 	);
 }
