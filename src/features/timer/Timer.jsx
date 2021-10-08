@@ -12,6 +12,7 @@ import ArrowLeftRoundedIcon from '@mui/icons-material/ArrowLeftRounded';
 const StyledMainTimer = styled(Main)`
 	display: flex;
 	flex-direction: column;
+	justify-content: space-around;
 	align-items: center;
 	text-align: center;
 
@@ -180,10 +181,15 @@ export default function Timer() {
 				pauseButtonHandler={pauseButtonHandler}
 				setPlayer={setPlayer}
 			/>
-			<VolumeSlider player={player} />
-			{Buttons}
+			{player ? (
+				<>
+					<VolumeSlider player={player} /> {Buttons}
+				</>
+			) : (
+				''
+			)}
 			<Link className="back-to-set" to="/setting">
-				<ArrowLeftRoundedIcon />
+				<ArrowLeftRoundedIcon sx={{ fontSize: '3rem' }} />
 				Back to Set
 			</Link>
 		</MainTimer>

@@ -63,8 +63,8 @@ const StyledMainHome = styled(Main)`
 			font-weight: 700;
 		}
 
-		ol {
-			margin: 2rem 0;
+		ol li {
+			margin-top: 2rem;
 		}
 	}
 `;
@@ -103,15 +103,14 @@ export default function Home() {
 				<h2>How to Use</h2>
 				<ol>
 					<li>Select or type focus time, short&long break time.</li>
-					<img src={HeroImage} alt="hero" />
+					{/* <img src={HeroImage} alt="hero" /> */}
 					<li>
-						Select or set your favourite YouTube video for each time. You can
-						also select “None” if you prefer silence.
-						<br />
+						Select or set your favourite YouTube video for each time. <br />
+						You can also select “None” if you prefer silence.
 						<br />
 						Please paste YouTube link when setting your own.
 					</li>
-					<img src={HeroImage} alt="hero" />
+					{/* <img src={HeroImage} alt="hero" /> */}
 					<li>Click “Set” button and focus!</li>
 				</ol>
 				<SetTimerButton text="Set a Timer Now" link="/setting" />

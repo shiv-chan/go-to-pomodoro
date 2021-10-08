@@ -9,6 +9,8 @@ export const StyledHeader = styled.header`
 	height: 45px;
 	z-index: 10;
 	position: fixed;
+	display: flex;
+	align-items: center;
 	background-color: ${({ session }) => {
 		if (session === 'focus') return 'var(--main-header-color)';
 		else if (session === 'short') return 'var(--short-header-color)';
@@ -20,7 +22,7 @@ export const StyledHeader = styled.header`
 		else if (session === 'long') return 'var(--long-color)';
 	}};
 	align-items: center;
-	padding: 15px 35px;
+	padding: 15px 25px;
 	cursor: pointer;
 `;
 
