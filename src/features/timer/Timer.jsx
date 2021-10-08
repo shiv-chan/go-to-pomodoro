@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { set } from './timerSlice';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import Bell from '../../assets/RZFWLXE-bell-hop-bell.mp3';
 import Video from './Video';
 import VolumeSlider from '../../app/VolumeSlider';
 import { Main } from '../../styles/StyledMain';
@@ -88,11 +89,16 @@ export default function Timer() {
 		};
 	}, [lastUpdatedTime]);
 
+	const playAudio = () => {
+		new Audio(Bell).play();
+	};
+
 	// when one session ends...
 	if (remainingTime < 1) {
 		clearTimeout(timeoutId);
 		setTimerState('ticking');
 		setElapsedTime(0);
+		playAudio();
 
 		if (session === 'focus' && setCounter < 3) {
 			dispatch(set({ currentSession: 'short' }));
