@@ -101,9 +101,8 @@ export default function ShortBreakSetting() {
 							onFocus={handleRadioChange}
 							ref={refInput}
 						/>
-						{/* <span> min</span> */}
+						{ErrorMessage}
 					</label>
-					{ErrorMessage}
 				</div>
 			</div>
 		</section>

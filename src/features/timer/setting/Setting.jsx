@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import { Main } from '../../../styles/StyledMain';
-import { StyledSetTimerButton } from '../../../app/Home';
+import { PillLink } from '../../../styles/StyledLink';
 import FocusTimeSetting from './FocusTimeSetting';
 import ShortBreakSetting from './ShortBreakSetting';
 import LongBreakSetting from './LongBreakSetting';
@@ -11,11 +11,11 @@ import FocusBgmSetting from './FocusBgmSetting';
 import ShortBgmSetting from './ShortBgmSetting';
 import LongBgmSetting from './LongBgmSetting';
 
-const StyledSetButton = styled(StyledSetTimerButton)`
+const StyledSetButton = styled(PillLink)`
 	padding: 0.5rem 3rem;
 	letter-spacing: 0.4rem;
 	font-size: 1.5rem;
-	margin-bottom: 0;
+	margin-bottom: 4rem;
 
 	&.isDisabled {
 		cursor: not-allowed;
@@ -37,13 +37,18 @@ const StyledMainSetting = styled(Main)`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	padding: 45px 5rem 5rem;
 
 	h1 {
 		font-weight: bold;
 		font-size: 2rem;
 		text-align: center;
-		margin: 3rem 0;
+		margin: 5rem;
+	}
+
+	@media only screen and (min-width: 768px) {
+		h1 {
+			font-size: 3rem;
+		}
 	}
 `;
 

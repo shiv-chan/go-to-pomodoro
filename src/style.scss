@@ -27,13 +27,6 @@
 	width: 100%;
 }
 
-// responsive
-@mixin tablet {
-	@media only screen and (min-width: 768px) {
-		@content;
-	}
-}
-
 html,
 body {
 	min-height: 100vh;
@@ -124,6 +117,8 @@ body {
 				align-items: center;
 				height: 3rem;
 				font-size: 1.5rem;
+				cursor: pointer;
+				position: relative;
 
 				span {
 					width: auto;
@@ -201,10 +196,10 @@ body {
 
 .error-message {
 	position: absolute;
+	width: 400px;
 	border: none !important;
-	width: 100px;
-	right: 1rem;
-	bottom: -3.5rem;
+	text-align: center;
+	bottom: -2rem;
 	color: red;
 	font-weight: bold;
 	font-size: 1.2rem;
@@ -214,6 +209,9 @@ body {
 .bgm-setting {
 	position: relative;
 	margin-bottom: 3rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 
 	h2 {
 		color: #000 !important;
@@ -225,19 +223,12 @@ body {
 		display: block;
 		width: 80%;
 		height: 3rem;
-		margin: 1.5rem auto;
+		margin-top: 1rem;
 		border-radius: 0.5rem;
 		padding: 0.1rem 0.5rem;
 		font-size: 1.5rem;
 		outline: none;
 		background-color: transparent;
-	}
-
-	.error-message {
-		width: auto;
-		left: 0;
-		bottom: -0.5rem;
-		text-align: center;
 	}
 }
 
@@ -312,8 +303,52 @@ body {
 	width: auto;
 }
 
+// responsive
+@mixin tablet {
+	@media only screen and (min-width: 768px) {
+		@content;
+	}
+}
+
 @include tablet {
 	.logo {
 		font-size: 2rem;
+	}
+
+	.time-setting {
+		h2 {
+			font-size: 2rem;
+		}
+
+		.time-options {
+			gap: 2rem;
+			margin-top: 3rem;
+			margin-bottom: 6rem;
+
+			div {
+				label {
+					height: 4.5rem;
+					font-size: 2rem;
+
+					span {
+						margin-left: 0.5rem;
+						font-size: 1.5rem;
+					}
+
+					input[type='number'] {
+						font-size: 2rem;
+
+						&::placeholder {
+							font-size: 1.5rem;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.error-message {
+		font-size: 1.8rem;
+		bottom: -3rem;
 	}
 }

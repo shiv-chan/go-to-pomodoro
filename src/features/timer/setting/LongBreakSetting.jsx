@@ -101,9 +101,8 @@ export default function LongBreakSetting() {
 							onFocus={handleRadioChange}
 							ref={refInput}
 						/>
-						{/* <span> min</span> */}
+						{ErrorMessage}
 					</label>
-					{ErrorMessage}
 				</div>
 			</div>
 		</section>

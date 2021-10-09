@@ -128,9 +128,8 @@ export default function FocusSetting() {
 							onFocus={handleRadioChange}
 							ref={refInput}
 						/>
-						{/* <span> min</span> */}
+						{ErrorMessage}
 					</label>
-					{ErrorMessage}
 				</div>
 			</div>
 		</section>

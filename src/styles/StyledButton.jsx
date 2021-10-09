@@ -26,8 +26,7 @@ const Button = styled.button`
 `;
 
 export default function StyledButton({ onClick, text, ...otherProps }) {
-	const timer = useSelector((state) => state.timer);
-	const session = timer.currentSession;
+	const session = useSelector((state) => state.timer.currentSession);
 
 	return (
 		<Button onClick={onClick} session={session} {...otherProps}>
