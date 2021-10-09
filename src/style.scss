@@ -52,9 +52,9 @@ body {
 // switch background and title color
 .main-wrapper {
 	display: grid;
+	grid-template-columns: 100%;
 	justify-items: center;
 	min-height: calc(100vh - 45px);
-	padding-top: 45px;
 }
 
 .main-wrapper.focus {
@@ -310,4 +310,10 @@ body {
 
 .MuiSlider-valueLabel {
 	width: auto;
+}
+
+@include tablet {
+	.logo {
+		font-size: 2rem;
+	}
 }

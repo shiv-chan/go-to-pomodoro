@@ -13,6 +13,11 @@ export const StyledSetTimerButton = styled(PillLink)`
 	display: inline-block;
 	padding: 0.5rem 2rem;
 	margin: 5rem auto;
+
+	@media only screen and (min-width: 768px) {
+		font-size: 1.8rem;
+		padding: 0.8rem 3rem;
+	}
 `;
 
 const SetTimerButton = ({ text, link }) => {
@@ -26,9 +31,6 @@ const SetTimerButton = ({ text, link }) => {
 };
 
 const StyledMainHome = styled(Main)`
-	width: 80%;
-	max-width: 700px;
-
 	.hero,
 	.how-to {
 		display: flex;
@@ -50,7 +52,7 @@ const StyledMainHome = styled(Main)`
 	}
 
 	.description {
-		width: 400px;
+		max-width: 50rem;
 	}
 
 	li,
@@ -71,9 +73,44 @@ const StyledMainHome = styled(Main)`
 		}
 
 		ol {
-			width: auto;
+			width: 100%;
+			max-width: 50rem;
+			padding: 0 2rem;
+
 			li {
 				margin-top: 2rem;
+			}
+		}
+	}
+
+	@media only screen and (min-width: 768px) {
+		padding-bottom: 4rem;
+
+		.hero {
+			h1 {
+				font-size: 3rem;
+				padding: 2rem 0;
+			}
+
+			img {
+				width: 70%;
+				margin-bottom: 5rem;
+			}
+		}
+
+		p,
+		li {
+			font-size: 2.5rem;
+			line-height: 3rem;
+		}
+
+		.how-to {
+			h2 {
+				font-size: 2.5rem;
+			}
+
+			ol li {
+				margin-top: 4rem;
 			}
 		}
 	}

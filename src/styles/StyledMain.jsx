@@ -5,4 +5,6 @@ export const Main = styled.main`
 	flex-direction: column;
 	align-items: center;
 	justufy-content: center;
+	width: 80%;
+	max-width: 700px;
 `;
