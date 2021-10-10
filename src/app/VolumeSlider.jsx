@@ -62,19 +62,19 @@ export default function VolumeSlider({ player }) {
 		sliderColor = 'var(--long-color)';
 	}
 
+	const iconStyle = {
+		fontSize: '2.5rem',
+		color: `${sliderColor}`,
+		cursor: 'pointer',
+	};
+
 	return (
 		<Box sx={{ width: '100%' }}>
 			<Stack spacing={2} direction="row" sx={{ mt: 2 }} alignItems="center">
 				{isMuted || value === 0 ? (
-					<VolumeOffRoundedIcon
-						onClick={handleClick}
-						sx={{ fontSize: '2.5rem', color: `${sliderColor}` }}
-					/>
+					<VolumeOffRoundedIcon onClick={handleClick} sx={iconStyle} />
 				) : (
-					<VolumeUpRoundedIcon
-						onClick={handleClick}
-						sx={{ fontSize: '2.5rem', color: `${sliderColor}` }}
-					/>
+					<VolumeUpRoundedIcon onClick={handleClick} sx={iconStyle} />
 				)}
 				<Slider
 					aria-label="Volume"

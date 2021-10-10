@@ -7,6 +7,10 @@ const StyledFooter = styled(StyledHeader)`
 	position: relative;
 	bottom: 0;
 	text-align: center;
+
+	p {
+		font-size: 1.5rem;
+	}
 `;
 
 const StyledLink = styled.a`
@@ -22,7 +26,13 @@ export default function Footer() {
 		<StyledFooter session={session} as="footer">
 			<p>
 				Made by{' '}
-				<StyledLink href="https://kahoshibuya.dev/">Kaho Shibuya</StyledLink>
+				<StyledLink
+					href="https://kahoshibuya.dev/"
+					target="_blank"
+					rel="noreferrer"
+				>
+					Kaho Shibuya
+				</StyledLink>
 			</p>
 		</StyledFooter>
 	);

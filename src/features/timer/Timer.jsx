@@ -26,6 +26,12 @@ const StyledMainTimer = styled(Main)`
 		font-size: 5rem;
 		margin-bottom: 3rem;
 	}
+
+	@media only screen and (min-width: 768px) {
+		h1 {
+			font-size: 3.5rem;
+		}
+	}
 `;
 
 export default function Timer() {
