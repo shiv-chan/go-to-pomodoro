@@ -31,6 +31,7 @@ const StyledMainTimer = styled(Main)`
 export default function Timer() {
 	const timer = useSelector((state) => state.timer);
 	const session = timer.currentSession;
+	const haveRing = timer.haveRing;
 	const dispatch = useDispatch();
 	const [title, setTitle] = useState('');
 	const [timerState, setTimerState] = useState(''); // empty, pause, ticking
@@ -91,7 +92,7 @@ export default function Timer() {
 		clearTimeout(timeoutId);
 		setTimerState('ticking');
 		setElapsedTime(0);
-		playAudio();
+		if (haveRing === 'on') playAudio();
 
 		if (session === 'focus' && setCounter < 3) {
 			dispatch(set({ currentSession: 'short' }));

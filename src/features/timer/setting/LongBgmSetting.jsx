@@ -39,9 +39,15 @@ export default function LongBgmSetting() {
 				<option value="" disabled>
 					Select YouTube Video
 				</option>
-				<option value="long-sample-1">Long Break Sample 1</option>
-				<option value="long-sample-2">Long Break Sample 2</option>
-				<option value="long-sample-3">Long Break Sample 3</option>
+				<option value="https://www.youtube.com/watch?v=DWcJFNfaw9c">
+					lofi hip hop radio - beats to sleep/chill to
+				</option>
+				<option value="https://www.youtube.com/watch?v=l7TxwBhtTUY">
+					lofi hip hop radio - sad & sleepy beats
+				</option>
+				<option value="https://www.youtube.com/watch?v=devf3da7bTs">
+					Studio Ghibli Summer Night Deep Sleep Piano Collection Covered by kno
+				</option>
 				<option value="long-custom">Long Break Custom</option>
 			</select>
 			<input

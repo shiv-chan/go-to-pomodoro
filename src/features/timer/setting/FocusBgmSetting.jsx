@@ -39,9 +39,15 @@ export default function FocusBgmSetting() {
 				<option value="" disabled>
 					Select YouTube Video
 				</option>
-				<option value="focus-sample-1">Focus Sample 1</option>
-				<option value="focus-sample-2">Focus Sample 2</option>
-				<option value="focus-sample-3">Focus Sample 3</option>
+				<option value="https://www.youtube.com/watch?v=5qap5aO4i9A">
+					lofi hip hop radio - beasts to relax/study to
+				</option>
+				<option value="https://www.youtube.com/watch?v=21qNxnCS8WU">
+					CHILL RADIO 24/7
+				</option>
+				<option value="https://www.youtube.com/watch?v=P8j-_MOSrec">
+					STUDIO GHIBLI MUSIC 24/7 ~ Relaxing Music for Sleep & Study
+				</option>
 				<option value="focus-custom">Focus Custom</option>
 			</select>
 			<input

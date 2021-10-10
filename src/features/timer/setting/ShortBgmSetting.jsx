@@ -39,9 +39,15 @@ export default function ShortBgmSetting() {
 				<option value="" disabled>
 					Select YouTube Video
 				</option>
-				<option value="short-sample-1">Short Break Sample 1</option>
-				<option value="short-sample-2">Short Break Sample 2</option>
-				<option value="short-sample-3">Short Break Sample 3</option>
+				<option value="https://www.youtube.com/watch?v=5yx6BWlEVcY">
+					Chillhop Radio - jazzy & lofi hip pop beats
+				</option>
+				<option value="https://www.youtube.com/watch?v=5iS1KfG7wQs">
+					CHILL OUT
+				</option>
+				<option value="shttps://www.youtube.com/watch?v=p7TAvWdilcY">
+					Studio Ghibli Relaxing Music
+				</option>
 				<option value="short-custom">Short Break Custom</option>
 			</select>
 			<input

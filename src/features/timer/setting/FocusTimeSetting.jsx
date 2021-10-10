@@ -25,16 +25,16 @@ export default function FocusSetting() {
 	const handleNumberChange = (e) => {
 		const { value } = e.currentTarget;
 		setCustomTime(value);
-		const timeInSecond = parseInt(value) * 60;
+		const timeInSecond = parseFloat(value) * 60;
 		dispatch(set({ focus: timeInSecond }));
 	};
 
 	let ErrorMessage;
-	if (!time) {
+	if (!time && time !== 0) {
 		ErrorMessage = <div className="error-message">Please set a time.</div>;
-	} else if (time <= 0 || time >= 999 * 60) {
+	} else if (time < 1 || time >= 999 * 60) {
 		ErrorMessage = (
-			<div className="error-message">Time should be up to 999 min.</div>
+			<div className="error-message">Time should be 1 sec to 999 min.</div>
 		);
 	}
 

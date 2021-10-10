@@ -56,6 +56,8 @@ export default function Video({
 			}
 		} else if (playerState === 2) {
 			pauseButtonHandler();
+		} else if (playerState === 0 && timerState === 'ticking') {
+			startButtonHandler();
 		}
 	};
 

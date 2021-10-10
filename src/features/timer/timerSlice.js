@@ -2,15 +2,16 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
 	// set time in second
-	focus: 5, // 1500s
-	shortBreak: 6, // 300s
-	longBreak: 7, // 1800s
+	focus: 1500,
+	shortBreak: 300,
+	longBreak: 1800,
 	// youtube IDs
-	focusBgm: 'https://www.youtube.com/watch?v=P8j-_MOSrec',
-	shortBreakBgm: 'https://www.youtube.com/watch?v=UKONj4OA3y4',
-	longBreakBgm: 'https://www.youtube.com/watch?v=7voSN82FGF0',
+	focusBgm: '',
+	shortBreakBgm: '',
+	longBreakBgm: '',
 	// current session
 	currentSession: 'focus',
+	haveRing: 'on',
 };
 
 const timerSlice = createSlice({

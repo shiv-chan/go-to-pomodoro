@@ -149,7 +149,7 @@ export default function Home() {
 						{/* <img src={HeroImage} alt="hero" /> */}
 						<li>
 							Select or set your favourite YouTube video for each time. <br />
-							You can also select “None” if you prefer silence.
+							{/* You can also select “None” if you prefer silence. */}
 							<br />
 							Please paste YouTube link when setting your own.
 						</li>

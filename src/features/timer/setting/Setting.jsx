@@ -10,6 +10,7 @@ import LongBreakSetting from './LongBreakSetting';
 import FocusBgmSetting from './FocusBgmSetting';
 import ShortBgmSetting from './ShortBgmSetting';
 import LongBgmSetting from './LongBgmSetting';
+import RingSetting from './RingSetting';
 
 const StyledSetButton = styled(PillLink)`
 	padding: 0.5rem 3rem;
@@ -20,6 +21,11 @@ const StyledSetButton = styled(PillLink)`
 	&.isDisabled {
 		cursor: not-allowed;
 		background-color: #d4d4d4;
+	}
+
+	@media only screen and (min-width: 768px) {
+		font-size: 2rem;
+		margin-bottom: 8rem;
 	}
 `;
 
@@ -71,6 +77,7 @@ export default function Setting() {
 				<FocusBgmSetting />
 				<ShortBgmSetting />
 				<LongBgmSetting />
+				<RingSetting />
 				<SetButton
 					text="Set"
 					link={`${isAllFilled ? '/timer' : '#'}`}
