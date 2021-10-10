@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { set } from '../timerSlice';
 import styled from 'styled-components';
 
@@ -36,12 +36,21 @@ const RingSettingSection = styled.section`
 `;
 
 export default function RingSetting() {
-	const [checkboxValue, setCheckboxValue] = useState(true);
+	const haveRing = useSelector((state) => state.timer.haveRing);
 	const dispatch = useDispatch();
+	const [isChecked, setIsChecked] = useState(true);
+
+	useEffect(() => {
+		if (haveRing === 'on') {
+			setIsChecked(true);
+		} else {
+			setIsChecked(false);
+		}
+	}, []);
 
 	const checkboxClickHandler = (e) => {
 		const { checked } = e.target;
-		setCheckboxValue(checked);
+		setIsChecked(checked);
 
 		let payload;
 		if (checked) {
@@ -58,7 +67,7 @@ export default function RingSetting() {
 				type="checkbox"
 				name="ring"
 				id="ring"
-				checked={checkboxValue}
+				checked={isChecked}
 				onChange={checkboxClickHandler}
 			/>
 			<label htmlFor="ring">Ring a bell when the session ends 🔔</label>

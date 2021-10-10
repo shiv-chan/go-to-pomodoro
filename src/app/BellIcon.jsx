@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { set } from '../features/timer/timerSlice';
 import NotificationsActiveRoundedIcon from '@mui/icons-material/NotificationsActiveRounded';
@@ -8,11 +8,6 @@ export default function BellIcon() {
 	const session = useSelector((state) => state.timer.currentSession);
 	const haveRing = useSelector((state) => state.timer.haveRing);
 	const dispatch = useDispatch();
-	const [isOn, setIsOn] = useState(`${haveRing === 'on' ? true : false}`);
-
-	useEffect(() => {
-		dispatch(set({ haveRing: `${isOn ? 'on' : 'off'}` }));
-	}, [isOn]);
 
 	let iconColor;
 	if (session === 'focus') {
@@ -24,7 +19,7 @@ export default function BellIcon() {
 	}
 
 	const iconHandler = () => {
-		setIsOn((prevState) => !prevState);
+		dispatch(set({ haveRing: `${haveRing === 'on' ? 'off' : 'on'}` }));
 	};
 
 	const iconStyle = {
