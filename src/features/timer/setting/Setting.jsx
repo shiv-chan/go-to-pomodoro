@@ -5,12 +5,12 @@ import styled from 'styled-components';
 
 import { Main } from '../../../styles/StyledMain';
 import { PillLink } from '../../../styles/StyledLink';
-import FocusTimeSetting from './FocusTimeSetting';
-import ShortBreakSetting from './ShortBreakSetting';
-import LongBreakSetting from './LongBreakSetting';
-import FocusBgmSetting from './FocusBgmSetting';
-import ShortBgmSetting from './ShortBgmSetting';
-import LongBgmSetting from './LongBgmSetting';
+import FocusTimeSetting from './time/FocusTimeSetting';
+import ShortBreakSetting from './time/ShortBreakSetting';
+import LongBreakSetting from './time/LongBreakSetting';
+import FocusBgmSetting from './bgm/FocusBgmSetting';
+import ShortBgmSetting from './bgm/ShortBgmSetting';
+import LongBgmSetting from './bgm/LongBgmSetting';
 import RingSetting from './RingSetting';
 
 const StyledSetButton = styled(PillLink)`

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import '../style.scss';
+import './style.scss';
 
 export const PillLink = styled(Link)`
 	font-weight: bold;

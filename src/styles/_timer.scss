@@ -1,0 +1,33 @@
+// buttons for a timer
+.buttons {
+	display: flex;
+	justify-content: center;
+	gap: 2rem;
+}
+
+.back-to-set {
+	font-size: 1.5rem;
+	width: auto;
+	text-decoration: none;
+	display: flex;
+	align-items: center;
+	color: #000;
+	margin-bottom: 2rem;
+}
+
+// slider's label
+.MuiSlider-valueLabel {
+	width: auto;
+}
+
+// timer
+.youtube-container {
+	width: 100vw;
+	height: calc(100vw * 9 / 16);
+
+	iframe {
+		width: 100%;
+		height: 100%;
+		border-radius: 5px;
+	}
+}

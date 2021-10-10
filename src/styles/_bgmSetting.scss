@@ -1,0 +1,66 @@
+// bgm setting
+.bgm-setting {
+	position: relative;
+	margin-bottom: 5rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	h2 {
+		color: #000 !important;
+		font-size: 1.5rem;
+	}
+
+	select,
+	input[type='text'] {
+		display: block;
+		width: 80%;
+		height: 3rem;
+		margin-top: 1rem;
+		border-radius: 0.5rem;
+		padding: 0.1rem 0.5rem;
+		font-size: 1.5rem;
+		outline: none;
+		background-color: transparent;
+	}
+}
+
+// switch bgm setting color
+.bgm-setting.focus {
+	select,
+	input[type='text'] {
+		border: 1px solid var(--main-accent-color);
+	}
+
+	select.selected {
+		background-color: var(--main-accent-color);
+		color: var(--main-bg-color);
+		font-weight: bold;
+	}
+}
+
+.bgm-setting.short {
+	select,
+	input[type='text'] {
+		border: 1px solid var(--short-color);
+	}
+
+	select.selected {
+		background-color: var(--short-color);
+		color: var(--short-bg-color);
+		font-weight: bold;
+	}
+}
+
+.bgm-setting.long {
+	select,
+	input[type='text'] {
+		border: 1px solid var(--long-color);
+	}
+
+	select.selected {
+		background-color: var(--long-color);
+		color: var(--long-bg-color);
+		font-weight: bold;
+	}
+}

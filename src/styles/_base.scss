@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&display=swap');
+/* font-family: 'Cinzel', serif; */
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,800;1,400;1,600;1,800&display=swap');
+/* font-family: 'EB Garamond', serif; */
+
+:root {
+	--primary-font: 'Cinzel', serif;
+	--secondary-font: 'EB Garamond', serif;
+	--main-color: #b61919;
+	--main-header-color: #fdd2bf;
+	--main-accent-color: #ff6b6b;
+	--main-bg-color: #fff6f2;
+	--short-color: #539500;
+	--short-header-color: #d7fdbf;
+	--short-bg-color: #fafff2;
+	--long-color: #0094ff;
+	--long-header-color: #bfdffd;
+	--long-bg-color: #f2fdff;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-size: 62.5%;
+	font-family: var(--primary-font);
+	width: 100%;
+}
+
+html,
+body {
+	min-height: 100vh;
+}

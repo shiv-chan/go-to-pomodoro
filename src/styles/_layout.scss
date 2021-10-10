@@ -1,0 +1,78 @@
+// responsive
+@mixin tablet {
+	@media only screen and (min-width: 768px) {
+		@content;
+	}
+}
+
+@include tablet {
+	.logo {
+		font-size: 2rem;
+	}
+
+	.time-setting {
+		h2 {
+			font-size: 2rem;
+		}
+
+		.time-options {
+			gap: 2rem;
+			margin-top: 3rem;
+			margin-bottom: 6rem;
+
+			div {
+				label {
+					height: 4.5rem;
+					font-size: 2rem;
+
+					span {
+						margin-left: 0.5rem;
+						font-size: 1.5rem;
+					}
+
+					input[type='number'] {
+						font-size: 2rem;
+
+						&::placeholder {
+							font-size: 1.5rem;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.error-message {
+		font-size: 1.8rem;
+		bottom: -3rem;
+	}
+
+	.bgm-setting {
+		margin-bottom: 8rem;
+
+		h2 {
+			font-size: 2rem;
+		}
+
+		select {
+			margin-top: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		select,
+		input[type='text'] {
+			height: 4.5rem;
+			font-size: 2rem;
+			padding: 0.5rem 1rem;
+		}
+	}
+
+	.youtube-container {
+		width: 700px;
+		height: calc(700px * 9 / 16);
+	}
+
+	.back-to-set {
+		margin: 3rem auto 4rem;
+	}
+}
