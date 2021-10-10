@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import YouTube from 'react-youtube';
 import { useSelector } from 'react-redux';
 const youtubeID = require('youtube-id');
 
 export default function Video({
-	session,
 	setCounter,
 	timerState,
 	startButtonHandler,
@@ -12,6 +11,7 @@ export default function Video({
 	setPlayer,
 }) {
 	const timer = useSelector((state) => state.timer);
+	const session = timer.currentSession;
 	let videoId;
 	let autoplay;
 
@@ -23,11 +23,13 @@ export default function Video({
 		videoId = youtubeID(timer.longBreakBgm);
 	}
 
-	if (session === 'focus' && setCounter === 0) {
-		autoplay = 0;
-	} else {
-		autoplay = 1;
-	}
+	useEffect(() => {
+		if (session === 'focus' && setCounter === 0) {
+			autoplay = 0;
+		} else {
+			autoplay = 1;
+		}
+	}, [session]);
 
 	const opts = {
 		width: '480',
@@ -42,6 +44,7 @@ export default function Video({
 
 	const getEvent = (e) => {
 		setPlayer(e.target);
+		e.target.setVolume(30);
 	};
 
 	const controlVideoPlay = (e) => {
@@ -53,6 +56,8 @@ export default function Video({
 			}
 		} else if (playerState === 2) {
 			pauseButtonHandler();
+		} else if (playerState === 0 && timerState === 'ticking') {
+			startButtonHandler();
 		}
 	};
 
@@ -62,6 +67,7 @@ export default function Video({
 			opts={opts}
 			onReady={getEvent}
 			onStateChange={controlVideoPlay}
+			containerClassName="youtube-container"
 		/>
 	);
 }

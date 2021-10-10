@@ -4,6 +4,7 @@ import { set } from '../timerSlice';
 
 export default function ShortBgmSetting() {
 	const bgm = useSelector((state) => state.timer.shortBreakBgm);
+	const session = useSelector((state) => state.timer.currentSession);
 	const dispatch = useDispatch();
 	const [shortBgm, setShortBgm] = useState('');
 	const [customShortBgm, setCustomShortBgm] = useState('');
@@ -28,15 +29,25 @@ export default function ShortBgmSetting() {
 	};
 
 	return (
-		<section className="bgm-setting">
+		<section className={`bgm-setting ${session}`}>
 			<h2>Short Break BGM</h2>
-			<select value={shortBgm} onChange={handleSelectChange}>
+			<select
+				value={shortBgm}
+				onChange={handleSelectChange}
+				className={`${bgm !== '' ? 'selected' : ''}`}
+			>
 				<option value="" disabled>
 					Select YouTube Video
 				</option>
-				<option value="short-sample-1">Short Break Sample 1</option>
-				<option value="short-sample-2">Short Break Sample 2</option>
-				<option value="short-sample-3">Short Break Sample 3</option>
+				<option value="https://www.youtube.com/watch?v=5yx6BWlEVcY">
+					Chillhop Radio - jazzy & lofi hip pop beats
+				</option>
+				<option value="https://www.youtube.com/watch?v=5iS1KfG7wQs">
+					CHILL OUT
+				</option>
+				<option value="shttps://www.youtube.com/watch?v=p7TAvWdilcY">
+					Studio Ghibli Relaxing Music
+				</option>
 				<option value="short-custom">Short Break Custom</option>
 			</select>
 			<input

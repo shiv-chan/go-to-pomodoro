@@ -4,6 +4,7 @@ import { set } from '../timerSlice';
 
 export default function LongBgmSetting() {
 	const bgm = useSelector((state) => state.timer.longBreakBgm);
+	const session = useSelector((state) => state.timer.currentSession);
 	const dispatch = useDispatch();
 	const [longBgm, setLongBgm] = useState('');
 	const [customLongBgm, setCustomLongBgm] = useState('');
@@ -28,15 +29,25 @@ export default function LongBgmSetting() {
 	};
 
 	return (
-		<section className="bgm-setting">
+		<section className={`bgm-setting ${session}`}>
 			<h2>Long Break BGM</h2>
-			<select value={longBgm} onChange={handleSelectChange}>
+			<select
+				value={longBgm}
+				onChange={handleSelectChange}
+				className={`${bgm !== '' ? 'selected' : ''}`}
+			>
 				<option value="" disabled>
 					Select YouTube Video
 				</option>
-				<option value="long-sample-1">Long Break Sample 1</option>
-				<option value="long-sample-2">Long Break Sample 2</option>
-				<option value="long-sample-3">Long Break Sample 3</option>
+				<option value="https://www.youtube.com/watch?v=DWcJFNfaw9c">
+					lofi hip hop radio - beats to sleep/chill to
+				</option>
+				<option value="https://www.youtube.com/watch?v=l7TxwBhtTUY">
+					lofi hip hop radio - sad & sleepy beats
+				</option>
+				<option value="https://www.youtube.com/watch?v=devf3da7bTs">
+					Studio Ghibli Summer Night Deep Sleep Piano Collection Covered by kno
+				</option>
 				<option value="long-custom">Long Break Custom</option>
 			</select>
 			<input

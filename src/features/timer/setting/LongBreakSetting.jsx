@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 export default function LongBreakSetting() {
 	const time = useSelector((state) => state.timer.longBreak);
+	const session = useSelector((state) => state.timer.currentSession);
 	const dispatch = useDispatch();
 	const refInput = useRef();
 	const [longBreakTime, setLongBreakTime] = useState('30');
@@ -24,24 +25,24 @@ export default function LongBreakSetting() {
 	const handleNumberChange = (e) => {
 		const { value } = e.currentTarget;
 		setCustomTime(value);
-		const timeInSecond = parseInt(value) * 60;
+		const timeInSecond = parseFloat(value) * 60;
 		dispatch(set({ longBreak: timeInSecond }));
 	};
 
 	let ErrorMessage;
-	if (!time) {
+	if (!time && time !== 0) {
 		ErrorMessage = <div className="error-message">Please set a time.</div>;
-	} else if (time <= 0 || time >= 999 * 60) {
+	} else if (time < 1 || time >= 999 * 60) {
 		ErrorMessage = (
-			<div className="error-message">Time should be up to 999 min.</div>
+			<div className="error-message">Time should be 1 sec to 999 min.</div>
 		);
 	}
 
 	return (
 		<section className="time-setting">
 			<h2>Long Break Time</h2>
-			<div className="time-options">
-				<div>
+			<div className={`time-options ${session}`}>
+				<div className={`${longBreakTime === '20' ? 'selected' : ''}`}>
 					<input
 						type="radio"
 						id="l20"
@@ -54,7 +55,7 @@ export default function LongBreakSetting() {
 						20 <span className="min">min</span>
 					</label>
 				</div>
-				<div>
+				<div className={`${longBreakTime === '30' ? 'selected' : ''}`}>
 					<input
 						type="radio"
 						id="l30"
@@ -67,7 +68,7 @@ export default function LongBreakSetting() {
 						30 <span className="min">min</span>
 					</label>
 				</div>
-				<div>
+				<div className={`${longBreakTime === '40' ? 'selected' : ''}`}>
 					<input
 						type="radio"
 						id="l40"
@@ -80,7 +81,7 @@ export default function LongBreakSetting() {
 						40 <span className="min">min</span>
 					</label>
 				</div>
-				<div>
+				<div className={`${longBreakTime === '' ? 'selected' : ''}`}>
 					<input
 						type="radio"
 						name="l-custom"
@@ -100,9 +101,8 @@ export default function LongBreakSetting() {
 							onFocus={handleRadioChange}
 							ref={refInput}
 						/>
-						<span> min</span>
+						{ErrorMessage}
 					</label>
-					{ErrorMessage}
 				</div>
 			</div>
 		</section>
