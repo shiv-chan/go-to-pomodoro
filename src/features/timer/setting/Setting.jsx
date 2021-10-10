@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { set } from '../timerSlice';
 import styled from 'styled-components';
 
 import { Main } from '../../../styles/StyledMain';
@@ -29,11 +30,16 @@ const StyledSetButton = styled(PillLink)`
 	}
 `;
 
-const SetButton = ({ text, link, className }) => {
+const SetButton = ({ text, link, className, ...props }) => {
 	const session = useSelector((state) => state.timer.currentSession);
 
 	return (
-		<StyledSetButton to={link} session={session} className={className}>
+		<StyledSetButton
+			to={link}
+			session={session}
+			className={className}
+			{...props}
+		>
 			{text}
 		</StyledSetButton>
 	);
@@ -61,11 +67,16 @@ const StyledMainSetting = styled(Main)`
 export default function Setting() {
 	const timer = useSelector((state) => state.timer);
 	const session = timer.currentSession;
+	const dispatch = useDispatch();
 	const [isAllFilled, setIsAllFilled] = useState(false);
 
 	useEffect(() => {
 		setIsAllFilled(Object.values(timer).every(Boolean));
 	}, [timer]);
+
+	const setButtonHandler = () => {
+		dispatch(set({ currentSession: 'focus' }));
+	};
 
 	return (
 		<div className={`main-wrapper ${session}`}>
@@ -82,6 +93,7 @@ export default function Setting() {
 					text="Set"
 					link={`${isAllFilled ? '/timer' : '#'}`}
 					className={`${isAllFilled ? '' : 'isDisabled'}`}
+					onClick={setButtonHandler}
 				/>
 			</StyledMainSetting>
 		</div>
