@@ -1,7 +1,9 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import HeroImage from '../assets/hero-img.svg';
+import HeroImageFocus from '../assets/hero-image-focus.svg';
+import HeroImageShort from '../assets/hero-image-short.svg';
+import HeroImageLong from '../assets/hero-image-long.svg';
 import { Main } from '../styles/StyledMain';
 import { PillLink } from '../styles/StyledLink';
 
@@ -119,6 +121,15 @@ const StyledMainHome = styled(Main)`
 export default function Home() {
 	const session = useSelector((state) => state.timer.currentSession);
 
+	let imageSource;
+	if (session === 'focus') {
+		imageSource = HeroImageFocus;
+	} else if (session === 'short') {
+		imageSource = HeroImageShort;
+	} else if (session === 'long') {
+		imageSource = HeroImageLong;
+	}
+
 	return (
 		<div className={`main-wrapper ${session}`}>
 			<StyledMainHome className="home">
@@ -130,7 +141,7 @@ export default function Home() {
 						<br />
 						Your Own Music
 					</h1>
-					<img src={HeroImage} alt="hero" />
+					<img src={imageSource} alt="hero" />
 					<div className="description">
 						<p>
 							Go-to Pomorodo is a customize timer with the pomodoro technique.

@@ -87,7 +87,7 @@ export default function VolumeSlider({ player }) {
 					sx={{ width: 200, color: `${sliderColor}` }}
 				/>
 			</Stack>
-			<Stack spacing={2} direction="row" sx={{ mb: 2 }} alignItems="center">
+			<Stack spacing={2} direction="row" alignItems="center">
 				<BellIcon />
 				<strong
 					style={{
