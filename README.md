@@ -52,3 +52,29 @@ To visit the app:
 `localhost:3000`
 
 ## Reflection
+
+I created this app with my very own idea and design. Also, I decided to create it with an API and some new things such as `styled-components` or Materal UI to challenge myself.
+
+First, I tried to connect to YouTube IFrame Player API following the official documentation. However, the code in there are all written in JavaScript.<br/>
+I couldn't figure out how to convert those codes to React, so I used [`react-youtube` npm package](https://www.npmjs.com/package/react-youtube).
+
+As always, I started this process by putting the following command `npx create-react app react-todo-app --template redux`, which is creating a redux + plain JS boilerplate.
+
+There are two parts that I mostly struggled with.
+
+1. The timer<br/>
+I implement the timer with `setInterval` first. It simply counts down time in every one second, which was not very accurate.<br/>
+In order to make the timer accurate as possible, I switched to use `setTimeout`. <br/><br/>
+Set the following three states: `lastUpdatedTime`, `elapsedTime`, `totalTime`<br/>
+In `setTimeout`, I created the callback function that calculates `lastUpdateTime`, which is given by `Date.now()` and accumulates `elapsedTime` by adding `Date.now() - lastUpdateTime` to the previous `elapsedTime`.  This `setTimeout` runs in 100 milliseconds.<br/><br/>
+Placed this `setTimeout` under `useEffect` that has `lastUpdateTime` as a dependency.<br/>
+Therefore, this `setTimeout` keeps running until `clearTimeout` gets called.<br/><br/>
+`lastUpdateTime` gets updated in very short time, so this timer wont't get a time lag as big as we can recognize.
+
+
+2. Setting events that control YouTube video player.<br/>
+I needed to add events to the button elements to make them control the YouTube video player. Since I used `react-youtube` package, I couldn't implement the way that the API's official documantation shows.<br/><br/>
+In `react-youtube`, the target YouTube video player is identified with `e.target`.  Set the function that gets and sets `e.target` as the state with `onReady` props in the `YouTube` component.
+
+
+The some components still have repetitive codes. Also, using both Sass and Styled Components might be confusing. I need to rethink how and when I should use Styled Components and Scss.
