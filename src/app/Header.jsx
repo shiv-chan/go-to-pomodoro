@@ -61,7 +61,7 @@ export default function Header() {
 	return (
 		<StyledHeader session={session}>
 			<Link className="logo" to="/">
-				Go-to Promodoro
+				Go-to Pomodoro
 			</Link>
 			<SetTimerButton text="Set a Timer" link="/setting" />
 		</StyledHeader>
