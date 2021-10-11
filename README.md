@@ -1,44 +1,80 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
+# Go-to Pomodoro
 
-## Available Scripts
+This is a customizable pomodoro timer with BGM built with React, Redux.
 
-In the project directory, you can run:
+The user is supposed to set a YouTube link as her/his own music. I used [YouTube IFrame Player API](https://developers.google.com/youtube/iframe_api_reference)  to embed the YouTube video in this app.
 
-### `yarn start`
+For styling, I used Sass, Styled Components, and Material UI.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## Project Status
 
-### `yarn test`
+Mostly done with functioning part.<br/>
+Still needed some tests and refactoring.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Project Result
 
-### `yarn build`
+ #### Home page, Setting page, and Setting page with some error messages
+![1](https://user-images.githubusercontent.com/51708229/136717310-9d8622b8-00c7-491d-a48f-36cf21ff6e64.png)
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+ - The user can either select or set time and a BGM for each session respectively.
+ - Custom inputs for both time and the BGM should be filled, so the error messages will be shown if they are empty.
+ - Time should be more than 0 sec and less than 1000 min, so the error message will be shown to meet the condition.
+ - The set button at the bottom of the setting page keeps disabled until all time and BGMs setting is specified. 
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+ #### Timer pages in each session (Focus, Short Break, Long Break)
+![2](https://user-images.githubusercontent.com/51708229/136717316-4b3c1be9-4a1f-4bd8-a534-bdc9af0a7ba0.png)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- The user can control(start, pause, resume) the timer by clicking YouTube video's play button or button(s) below the video.
+- The buttons below the video changes according to the timers status.
+- There are the volume control slider and the toggle for the bell that rings when each session's time is up.
+- The colour scheme changes on each session.
 
-### `yarn eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Production Site
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+https://go-to-pomodoro.vercel.app/
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Installation and Setup Instructions
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Clone down `main` repository. You will need `npm` and `node` installed grobally on your local machine.
 
-## Learn More
+Installation:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+`npm install`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+To start a server:
+
+`npm start`
+
+To visit the app:
+
+`localhost:3000`
+
+## Reflection
+
+I created this app with my very own idea and design. Also, I decided to create it with an API and some new things such as `styled-components` or Material UI to challenge myself.
+
+First, I tried to connect to YouTube IFrame Player API following the official documentation. However, the code in there are all written in JavaScript.<br/>
+I couldn't figure out how to convert those codes to React, so I used [`react-youtube` npm package](https://www.npmjs.com/package/react-youtube).
+
+As always, I started this process by putting the following command `npx create-react app react-todo-app --template redux`, which is creating a redux + plain JS boilerplate.
+
+There are two parts that I mostly struggled with.
+
+1. The timer<br/>
+I implement the timer with `setInterval` first. It simply counts down time in every one second, which was not very accurate.<br/>
+In order to make the timer accurate as possible, I switched to use `setTimeout`. <br/><br/>
+Set the following three states: `lastUpdatedTime`, `elapsedTime`, `totalTime`<br/>
+In `setTimeout`, I created the callback function that calculates `lastUpdateTime`, which is given by `Date.now()` and accumulates `elapsedTime` by adding `Date.now() - lastUpdateTime` to the previous `elapsedTime`.  This `setTimeout` runs in 100 milliseconds.<br/><br/>
+Placed this `setTimeout` under `useEffect` that has `lastUpdateTime` as a dependency.<br/>
+Therefore, this `setTimeout` keeps running until `clearTimeout` gets called.<br/><br/>
+`lastUpdateTime` gets updated in very short time, so this timer wont't get a time lag as big as we can recognize.
+
+
+2. Setting events that control YouTube video player.<br/>
+I needed to add events to the button elements to make them control the YouTube video player. Since I used `react-youtube` package, I couldn't implement the way that the API's official documantation shows.<br/><br/>
+In `react-youtube`, the target YouTube video player is identified with `e.target`.  Set the function that gets and sets `e.target` as the state with `onReady` props in the `YouTube` component.
+
+
+The some components still have repetitive codes. Also, using both Sass and Styled Components might be confusing. I need to rethink how and when I should use Styled Components and Scss.
