@@ -53,7 +53,7 @@ To visit the app:
 
 ## Reflection
 
-I created this app with my very own idea and design. Also, I decided to create it with an API and some new things such as `styled-components` or Materal UI to challenge myself.
+I created this app with my very own idea and design. Also, I decided to create it with an API and some new things such as `styled-components` or Material UI to challenge myself.
 
 First, I tried to connect to YouTube IFrame Player API following the official documentation. However, the code in there are all written in JavaScript.<br/>
 I couldn't figure out how to convert those codes to React, so I used [`react-youtube` npm package](https://www.npmjs.com/package/react-youtube).
