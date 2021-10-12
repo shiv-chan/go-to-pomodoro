@@ -1,6 +1,6 @@
 # Go-to Pomodoro
 
-This is a customizable pomodoro timer with BGM built with React, Redux.
+This is a customizable pomodoro timer with BGM built with React and Redux.
 
 The user is supposed to set a YouTube link as her/his own music. I used [YouTube IFrame Player API](https://developers.google.com/youtube/iframe_api_reference)  to embed the YouTube video in this app.
 
@@ -15,7 +15,7 @@ Still needed some tests and refactoring.
 ## Project Result
 
  #### Home page, Setting page, and Setting page with some error messages
-![1](https://user-images.githubusercontent.com/51708229/136717310-9d8622b8-00c7-491d-a48f-36cf21ff6e64.png)
+![go-to-pomodoro-1](https://user-images.githubusercontent.com/51708229/136832266-5a881c75-9526-4ef0-a363-111b0c41e3df.png)
 
  - The user can either select or set time and a BGM for each session respectively.
  - Custom inputs for both time and the BGM should be filled, so the error messages will be shown if they are empty.
@@ -23,10 +23,10 @@ Still needed some tests and refactoring.
  - The set button at the bottom of the setting page keeps disabled until all time and BGMs setting is specified. 
 
  #### Timer pages in each session (Focus, Short Break, Long Break)
-![2](https://user-images.githubusercontent.com/51708229/136717316-4b3c1be9-4a1f-4bd8-a534-bdc9af0a7ba0.png)
+![go-to-pomodoro-2](https://user-images.githubusercontent.com/51708229/136832279-3bffefae-583b-45c9-9f4a-fd755b5cb1cb.png)
 
 - The user can control(start, pause, resume) the timer by clicking YouTube video's play button or button(s) below the video.
-- The buttons below the video changes according to the timers status.
+- The buttons below the video change according to the timers status.
 - There are the volume control slider and the toggle for the bell that rings when each session's time is up.
 - The colour scheme changes on each session.
 
@@ -69,7 +69,7 @@ Set the following three states: `lastUpdatedTime`, `elapsedTime`, `totalTime`<br
 In `setTimeout`, I created the callback function that calculates `lastUpdateTime`, which is given by `Date.now()` and accumulates `elapsedTime` by adding `Date.now() - lastUpdateTime` to the previous `elapsedTime`.  This `setTimeout` runs in 100 milliseconds.<br/><br/>
 Placed this `setTimeout` under `useEffect` that has `lastUpdateTime` as a dependency.<br/>
 Therefore, this `setTimeout` keeps running until `clearTimeout` gets called.<br/><br/>
-`lastUpdateTime` gets updated in very short time, so this timer wont't get a time lag as big as we can recognize.
+`lastUpdateTime` gets updated in very short time, so this timer won't get a time lag as big as we can recognize.
 
 
 2. Setting events that control YouTube video player.<br/>
