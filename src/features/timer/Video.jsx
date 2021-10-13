@@ -5,6 +5,7 @@ const youtubeID = require('youtube-id');
 
 export default function Video({
 	setCounter,
+	timeoutId,
 	timerState,
 	startButtonHandler,
 	pauseButtonHandler,
@@ -57,6 +58,7 @@ export default function Video({
 		} else if (playerState === 2) {
 			pauseButtonHandler();
 		} else if (playerState === 0 && timerState === 'ticking') {
+			clearTimeout(timeoutId);
 			startButtonHandler();
 		}
 	};

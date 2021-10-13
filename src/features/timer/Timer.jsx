@@ -183,6 +183,7 @@ export default function Timer() {
 				</article>
 				<Video
 					setCounter={setCounter}
+					timeoutId={timeoutId}
 					timerState={timerState}
 					startButtonHandler={startButtonHandler}
 					pauseButtonHandler={pauseButtonHandler}
