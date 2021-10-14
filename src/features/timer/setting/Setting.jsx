@@ -5,9 +5,7 @@ import styled from 'styled-components';
 
 import { Main } from '../../../styles/StyledMain';
 import { PillLink } from '../../../styles/StyledLink';
-import FocusTimeSetting from './time/FocusTimeSetting';
-import ShortBreakSetting from './time/ShortBreakSetting';
-import LongBreakSetting from './time/LongBreakSetting';
+import TimeOptions from './TimeOptions';
 import FocusBgmSetting from './bgm/FocusBgmSetting';
 import ShortBgmSetting from './bgm/ShortBgmSetting';
 import LongBgmSetting from './bgm/LongBgmSetting';
@@ -78,13 +76,34 @@ export default function Setting() {
 		dispatch(set({ currentSession: 'focus' }));
 	};
 
+	const TimeSettings = [
+		{
+			title: 'Focus Time',
+			timeOptions: ['10', '15', '20', '25', '30'],
+			defaultOption: '25',
+			sessionType: 'focus',
+		},
+		{
+			title: 'Short Break Time',
+			timeOptions: ['5', '10', '15'],
+			defaultOption: '5',
+			sessionType: 'shortBreak',
+		},
+		{
+			title: 'Long Break Time',
+			timeOptions: ['20', '30', '40'],
+			defaultOption: '30',
+			sessionType: 'longBreak',
+		},
+	];
+
 	return (
 		<div className={`main-wrapper ${session}`}>
 			<StyledMainSetting className="container">
 				<h1>Set a Timer</h1>
-				<FocusTimeSetting />
-				<ShortBreakSetting />
-				<LongBreakSetting />
+				{TimeSettings.map((setting) => (
+					<TimeOptions key={setting.sessionType} {...setting} />
+				))}
 				<FocusBgmSetting />
 				<ShortBgmSetting />
 				<LongBgmSetting />
