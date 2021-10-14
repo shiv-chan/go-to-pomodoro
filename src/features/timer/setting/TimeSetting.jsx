@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import { set } from '../timerSlice';
 import { useSelector, useDispatch } from 'react-redux';
 
-export default function TimeOptions({
+export default function TimeSetting({
 	title,
 	timeOptions,
 	defaultOption,
