@@ -33,15 +33,13 @@ export default function BgmSetting({
 		dispatch(set({ [bgmType]: value }));
 	};
 
-	console.log(bgm);
-
 	return (
 		<section className={`bgm-setting ${session}`}>
 			<h2>{title}</h2>
 			<select
 				value={selectedBgm}
 				onChange={handleSelectChange}
-				className={`${bgm ? 'selected' : ''}`}
+				className={`${bgm !== '' ? 'selected' : ''}`}
 			>
 				<option value="" disabled>
 					Select YouTube Video

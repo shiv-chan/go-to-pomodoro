@@ -66,6 +66,8 @@ export default function Setting() {
 	const dispatch = useDispatch();
 	const [isAllFilled, setIsAllFilled] = useState(false);
 
+	console.log(timer);
+
 	useEffect(() => {
 		setIsAllFilled(Object.values(timer).every(Boolean));
 	}, [timer]);
@@ -110,7 +112,7 @@ export default function Setting() {
 				],
 			],
 			defaultOption: '',
-			bgmType: 'focusBGM',
+			bgmType: 'focusBgm',
 		},
 		{
 			title: 'Short Break BGM',
