@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { set } from '../timerSlice';
 
@@ -13,6 +13,7 @@ export default function BgmSetting({
 	const dispatch = useDispatch();
 	const [selectedBgm, setSelectedBgm] = useState(defaultOption);
 	const [customBgm, setCustomBgm] = useState('');
+	const [isValidUrl, setIsValidUrl] = useState(null);
 	const refInput = useRef();
 
 	const handleSelectChange = (e) => {
@@ -30,8 +31,36 @@ export default function BgmSetting({
 	const handleInputChange = (e) => {
 		const { value } = e.currentTarget;
 		setCustomBgm(value);
-		dispatch(set({ [bgmType]: value }));
 	};
+
+	// dispatch string (YouTube video link) only it's valid.
+	useEffect(() => {
+		if (isValidUrl) {
+			dispatch(set({ [bgmType]: customBgm }));
+		} else {
+			dispatch(set({ [bgmType]: '' }));
+		}
+	}, [isValidUrl]);
+
+	// YouTube vieo link validation
+	useEffect(() => {
+		fetch(`https://www.youtube.com/oembed?url=${customBgm}&format=json`)
+			.then((res) => {
+				res.ok ? setIsValidUrl(true) : setIsValidUrl(false);
+			})
+			.catch((err) => console.error(err));
+	}, [customBgm]);
+
+	let ErrorMessage;
+	if (selectedBgm === `${bgmType}-custom` && !customBgm) {
+		ErrorMessage = (
+			<div className="error-message">Please enter YouTube video link.</div>
+		);
+	} else if (selectedBgm === `${bgmType}-custom` && !isValidUrl) {
+		ErrorMessage = (
+			<div className="error-message">YouTube video link is not valid.</div>
+		);
+	}
 
 	return (
 		<section className={`bgm-setting ${session}`}>
@@ -61,11 +90,7 @@ export default function BgmSetting({
 					selectedBgm === `${bgmType}-custom` ? 'shown' : 'hidden'
 				}`}
 			/>
-			{selectedBgm === `${bgmType}-custom` && !bgm ? (
-				<div className="error-message">Please enter YouTube video link.</div>
-			) : (
-				''
-			)}
+			{ErrorMessage}
 		</section>
 	);
 }
