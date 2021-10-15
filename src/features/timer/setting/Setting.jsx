@@ -66,8 +66,6 @@ export default function Setting() {
 	const dispatch = useDispatch();
 	const [isAllFilled, setIsAllFilled] = useState(false);
 
-	console.log(timer);
-
 	useEffect(() => {
 		setIsAllFilled(Object.values(timer).every(Boolean));
 	}, [timer]);

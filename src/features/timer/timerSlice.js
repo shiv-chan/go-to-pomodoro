@@ -6,9 +6,9 @@ const initialState = {
 	shortBreak: 300,
 	longBreak: 1800,
 	// youtube IDs
-	focusBgm: '',
-	shortBreakBgm: '',
-	longBreakBgm: '',
+	focusBgm: 'https://www.youtube.com/watch?v=5qap5aO4i9A',
+	shortBreakBgm: 'https://www.youtube.com/watch?v=5yx6BWlEVcY',
+	longBreakBgm: 'https://www.youtube.com/watch?v=DWcJFNfaw9c',
 	// current session
 	currentSession: 'focus',
 	haveRing: 'on',
