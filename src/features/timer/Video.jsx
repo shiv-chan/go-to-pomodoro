@@ -63,6 +63,8 @@ export default function Video({
 		}
 	};
 
+	console.log(videoId);
+
 	return (
 		<YouTube
 			videoId={videoId}
